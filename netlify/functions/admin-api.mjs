@@ -10,10 +10,49 @@ const JSON_HEADERS = {
 };
 
 function jsonResponse(statusCode, body) {
+  if (statusCode === 204 || statusCode === 304 || body === null) {
+    return new Response(null, {
+      status: statusCode === 204 || statusCode === 304 ? statusCode : 204,
+      headers: JSON_HEADERS,
+    });
+  }
+
   return new Response(JSON.stringify(body), {
     status: statusCode,
     headers: JSON_HEADERS,
   });
+}
+
+function getQueryParams(req) {
+  if (req.queryStringParameters) {
+    return new URLSearchParams(req.queryStringParameters);
+  }
+
+  try {
+    return new URL(req.url).searchParams;
+  } catch {
+    return new URLSearchParams();
+  }
+}
+
+async function readJsonBody(req) {
+  if (typeof req.json === 'function') {
+    try {
+      return await req.json();
+    } catch {
+      return {};
+    }
+  }
+
+  if (typeof req.body === 'string') {
+    try {
+      return JSON.parse(req.body || '{}');
+    } catch {
+      return {};
+    }
+  }
+
+  return req.body ?? {};
 }
 
 function normalizePath(pathname) {
@@ -321,7 +360,8 @@ export default async function handler(req, context) {
   const method = (req.httpMethod || req.method || 'GET').toUpperCase();
   const rawPath = req.path || req.rawUrl || req.url || '/';
   const pathname = normalizePath(rawPath);
-  const queryString = new URLSearchParams(req.queryStringParameters || {});
+  const queryString = getQueryParams(req);
+  const body = await readJsonBody(req);
 
   if (method === 'OPTIONS') {
     return jsonResponse(200, { ok: true });
@@ -345,7 +385,6 @@ export default async function handler(req, context) {
     }
 
     if (method === 'POST' && pathname === '/customers') {
-      const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body ?? {});
       const payload = {
         customerId: body.customerId,
         customerName: String(body.fullName ?? body.customerName ?? ''),
@@ -370,7 +409,6 @@ export default async function handler(req, context) {
 
     if (method === 'PATCH' && pathname.startsWith('/customers/')) {
       const customerId = pathname.split('/').filter(Boolean).at(-1);
-      const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body ?? {});
       const { data, error } = await client
         .from('customers')
         .update({
@@ -418,7 +456,6 @@ export default async function handler(req, context) {
     }
 
     if (method === 'POST' && pathname === '/reservations') {
-      const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body ?? {});
       const schema = await getReservationSchemaFeatures(client);
       const customerId = await ensureCustomer(client, {
         customerId: body.customerId,
@@ -486,7 +523,6 @@ export default async function handler(req, context) {
 
     if (method === 'PATCH' && pathname.startsWith('/reservations/')) {
       const reservationId = pathname.split('/').filter(Boolean).at(-1);
-      const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body ?? {});
       const schema = await getReservationSchemaFeatures(client);
 
       const { data: existingReservation, error: existingError } = await client
