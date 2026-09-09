@@ -81,7 +81,7 @@ function normalizePath(pathname) {
   return cleanPath;
 }
 
-const reservationSchemaFeatures = { place: null, tourName: null };
+const reservationSchemaFeatures = { place: null, tourName: null, endDate: null };
 
 function mapCustomer(row) {
   return {
@@ -105,9 +105,8 @@ function mapReservationRow(row) {
     email: row.customer?.email ?? '',
     phone: row.customer?.phone ?? '',
     whatsapp: row.customer?.whatsapp ?? row.customer?.phone ?? '',
-    reservationDate: row.reservation_date,
-    startTime: row.start_time,
-    endTime: row.end_time,
+    startDate: row.reservation_date,
+    endDate: row.end_date ?? row.reservation_date,
     adults: Number(row.adults),
     children: Number(row.children),
     totalGuests: Number(row.total_guests),
@@ -139,26 +138,29 @@ function getSupabaseClient() {
   });
 }
 
+async function columnExists(client, table, column) {
+  const { error } = await client.from(table).select(column).limit(1);
+  return !error;
+}
+
 async function getReservationSchemaFeatures(client) {
-  if (reservationSchemaFeatures.place !== null && reservationSchemaFeatures.tourName !== null) {
+  if (
+    reservationSchemaFeatures.place !== null &&
+    reservationSchemaFeatures.tourName !== null &&
+    reservationSchemaFeatures.endDate !== null
+  ) {
     return reservationSchemaFeatures;
   }
 
-  const { data, error } = await client
-    .from('information_schema.columns')
-    .select('column_name')
-    .eq('table_schema', 'public')
-    .eq('table_name', 'reservations')
-    .in('column_name', ['place', 'tour_name']);
+  const [place, tourName, endDate] = await Promise.all([
+    columnExists(client, 'reservations', 'place'),
+    columnExists(client, 'reservations', 'tour_name'),
+    columnExists(client, 'reservations', 'end_date'),
+  ]);
 
-  const columnNames = new Set((data ?? []).map((item) => String(item.column_name)));
-  reservationSchemaFeatures.place = columnNames.has('place');
-  reservationSchemaFeatures.tourName = columnNames.has('tour_name');
-
-  if (error) {
-    reservationSchemaFeatures.place = false;
-    reservationSchemaFeatures.tourName = false;
-  }
+  reservationSchemaFeatures.place = place;
+  reservationSchemaFeatures.tourName = tourName;
+  reservationSchemaFeatures.endDate = endDate;
 
   return reservationSchemaFeatures;
 }
@@ -176,8 +178,7 @@ async function fetchReservations(client) {
   const { data, error } = await client
     .from('reservations')
     .select('*, customer:customers(*), destination:destinations(*), tour:tours(*)')
-    .order('reservation_date', { ascending: false })
-    .order('start_time', { ascending: false });
+    .order('reservation_date', { ascending: false });
 
   if (error) {
     throw error;
@@ -356,7 +357,7 @@ async function ensureTour(client, payload) {
   return String(data.id);
 }
 
-export default async function handler(req, context) {
+export default async function handler(req, _context) {
   const method = (req.httpMethod || req.method || 'GET').toUpperCase();
   const rawPath = req.path || req.rawUrl || req.url || '/';
   const pathname = normalizePath(rawPath);
@@ -481,9 +482,7 @@ export default async function handler(req, context) {
         customer_id: customerId,
         destination_id: destinationId,
         tour_id: tourId,
-        reservation_date: String(body.reservationDate ?? ''),
-        start_time: body.startTime ? String(body.startTime) : null,
-        end_time: body.endTime ? String(body.endTime) : null,
+        reservation_date: String(body.startDate ?? ''),
         adults: Number(body.adults ?? 0),
         children: Number(body.children ?? 0),
         total_guests: Number(body.totalGuests ?? 0),
@@ -506,6 +505,10 @@ export default async function handler(req, context) {
 
       if (schema.tourName) {
         insertPayload.tour_name = tourName;
+      }
+
+      if (schema.endDate) {
+        insertPayload.end_date = String(body.endDate ?? body.startDate ?? '') || null;
       }
 
       const { data, error } = await client
@@ -556,9 +559,7 @@ export default async function handler(req, context) {
         customer_id: customerId,
         destination_id: destinationId,
         tour_id: tourId,
-        reservation_date: body.reservationDate,
-        start_time: body.startTime ?? null,
-        end_time: body.endTime ?? null,
+        reservation_date: body.startDate,
         adults: body.adults,
         children: body.children,
         total_guests: body.totalGuests,
@@ -578,6 +579,10 @@ export default async function handler(req, context) {
 
       if (schema.tourName) {
         updatePayload.tour_name = tourName;
+      }
+
+      if (schema.endDate) {
+        updatePayload.end_date = body.endDate || body.startDate || null;
       }
 
       const { data, error } = await client

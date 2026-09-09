@@ -19,9 +19,8 @@ export interface ReservationRecord {
   email: string;
   phone: string;
   whatsapp: string;
-  reservationDate: string;
-  startTime: string | null;
-  endTime: string | null;
+  startDate: string;
+  endDate: string;
   adults: number;
   children: number;
   totalGuests: number;
@@ -45,9 +44,8 @@ export interface ReservationUpsertPayload {
   email: string;
   phone: string;
   whatsapp: string;
-  reservationDate: string;
-  startTime: string | null;
-  endTime: string | null;
+  startDate: string;
+  endDate: string;
   adults: number;
   children: number;
   totalGuests: number;

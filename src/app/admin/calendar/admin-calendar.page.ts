@@ -61,7 +61,7 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
                 <div class="admin-calendar-events">
                   @for (reservation of reservationsForDay(day); track reservation.id) {
                     <button type="button" class="admin-calendar-event admin-calendar-event--{{ reservation.status }}" (click)="$event.stopPropagation(); openEdit(reservation)">
-                      <span>{{ reservation.startTime || 'All day' }}</span>
+                      <span>{{ reservation.place }}</span>
                       <strong>{{ reservation.customerName }}</strong>
                       <small>{{ reservation.tourName }} · {{ reservation.totalGuests }} guests</small>
                     </button>
@@ -84,7 +84,7 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
                   @for (reservation of reservationsForDay(day); track reservation.id) {
                     <button type="button" class="admin-calendar-event admin-calendar-event--{{ reservation.status }}" (click)="$event.stopPropagation(); openEdit(reservation)">
                       <strong>{{ reservation.customerName }}</strong>
-                      <small>{{ reservation.tourName }} · {{ reservation.startTime || 'All day' }}</small>
+                      <small>{{ reservation.tourName }} · {{ dateRangeLabel(reservation) }}</small>
                     </button>
                   }
                 </div>
@@ -98,21 +98,18 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
               @if (isToday(selectedDate())) {
                 <span class="today-dot" aria-label="Today"></span>
               }
+              <button type="button" class="admin-button admin-button--secondary" (click)="openCreate(selectedDate())">Add reservation</button>
             </header>
 
-            <div class="admin-slot-grid">
-              @for (slot of daySlots; track slot) {
-                <article class="admin-slot-row">
-                  <button type="button" class="admin-slot-time" (click)="openCreate(selectedDate(), slot)">{{ slot }}</button>
-                  <div class="admin-calendar-events admin-calendar-events--list">
-                    @for (reservation of reservationsForSlot(selectedDate(), slot); track reservation.id) {
-                      <button type="button" class="admin-calendar-event admin-calendar-event--{{ reservation.status }}" (click)="openEdit(reservation)">
-                        <strong>{{ reservation.customerName }}</strong>
-                        <small>{{ reservation.tourName }} · {{ reservation.place }} · {{ reservation.totalGuests }} guests</small>
-                      </button>
-                    }
-                  </div>
-                </article>
+            <div class="admin-calendar-events admin-calendar-events--list">
+              @for (reservation of reservationsForDay(selectedDate()); track reservation.id) {
+                <button type="button" class="admin-calendar-event admin-calendar-event--{{ reservation.status }}" (click)="openEdit(reservation)">
+                  <strong>{{ reservation.customerName }}</strong>
+                  <small>{{ reservation.tourName }} · {{ reservation.place }} · {{ reservation.totalGuests }} guests</small>
+                  <span>{{ dateRangeLabel(reservation) }}</span>
+                </button>
+              } @empty {
+                <p class="admin-empty-hint">No reservations for this day.</p>
               }
             </div>
           </article>
@@ -124,7 +121,7 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
                   <strong>{{ reservation.customerName }}</strong>
                   <p>{{ reservation.tourName }} · {{ reservation.place }}</p>
                 </div>
-                <span>{{ reservation.reservationDate }} · {{ reservation.startTime || 'All day' }}</span>
+                <span>{{ dateRangeLabel(reservation) }}</span>
               </button>
             }
           </div>
@@ -179,20 +176,16 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
 
             <section class="admin-form-section admin-form-span-2">
               <header class="admin-form-section-header">
-                <span>Dates & schedule</span>
+                <span>Dates</span>
               </header>
               <div class="admin-form-section-grid">
                 <label>
-                  <span>Date</span>
-                  <input type="date" formControlName="reservationDate" />
+                  <span>Start date</span>
+                  <input type="date" formControlName="startDate" />
                 </label>
                 <label>
-                  <span>Start time</span>
-                  <input type="time" formControlName="startTime" />
-                </label>
-                <label>
-                  <span>End time</span>
-                  <input type="time" formControlName="endTime" />
+                  <span>End date</span>
+                  <input type="date" formControlName="endDate" />
                 </label>
                 <label>
                   <span>Status</span>
@@ -301,7 +294,6 @@ export class AdminCalendarPage implements OnInit {
   readonly statusOptions = RESERVATION_STATUS_OPTIONS.filter((option) => option.value !== 'all');
   readonly currencies = CURRENCY_OPTIONS;
   readonly weekdayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  readonly daySlots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
 
   readonly calendarLabel = computed(() => format(this.selectedDate(), this.viewMode() === 'day' ? 'EEEE, MMMM d yyyy' : 'MMMM yyyy'));
 
@@ -314,9 +306,8 @@ export class AdminCalendarPage implements OnInit {
     adults: [2],
     children: [0],
     totalGuests: [2],
-    reservationDate: [''],
-    startTime: [''],
-    endTime: [''],
+    startDate: [''],
+    endDate: [''],
     place: [''],
     tourName: [''],
     status: ['pending'],
@@ -396,24 +387,28 @@ export class AdminCalendarPage implements OnInit {
   }
 
   agendaReservations(): ReservationRecord[] {
-    return [...this.reservations()].sort((a, b) => `${a.reservationDate} ${a.startTime || ''}`.localeCompare(`${b.reservationDate} ${b.startTime || ''}`));
+    return [...this.reservations()].sort((a, b) => `${a.startDate} ${a.endDate}`.localeCompare(`${b.startDate} ${b.endDate}`));
+  }
+
+  dateRangeLabel(reservation: ReservationRecord): string {
+    if (!reservation.endDate || reservation.endDate === reservation.startDate) {
+      return reservation.startDate;
+    }
+    return `${reservation.startDate} → ${reservation.endDate}`;
   }
 
   reservationsForDay(day: Date): ReservationRecord[] {
     const dayKey = format(day, 'yyyy-MM-dd');
     return this.reservations()
-      .filter((reservation) => reservation.reservationDate === dayKey)
-      .sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
+      .filter((reservation) => {
+        const start = reservation.startDate;
+        const end = reservation.endDate || reservation.startDate;
+        return start <= dayKey && dayKey <= end;
+      })
+      .sort((a, b) => a.startDate.localeCompare(b.startDate));
   }
 
-  reservationsForSlot(day: Date, slot: string): ReservationRecord[] {
-    const dayKey = format(day, 'yyyy-MM-dd');
-    return this.reservations()
-      .filter((reservation) => reservation.reservationDate === dayKey && (reservation.startTime || '').slice(0, 5) === slot)
-      .sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
-  }
-
-  openCreate(date: Date, time?: string): void {
+  openCreate(date: Date): void {
     this.editingReservationId.set(null);
     this.isFormOpen.set(true);
     this.reservationForm.reset({
@@ -425,9 +420,8 @@ export class AdminCalendarPage implements OnInit {
       adults: 2,
       children: 0,
       totalGuests: 2,
-      reservationDate: format(date, 'yyyy-MM-dd'),
-      startTime: time ?? '',
-      endTime: '',
+      startDate: format(date, 'yyyy-MM-dd'),
+      endDate: format(date, 'yyyy-MM-dd'),
       place: '',
       tourName: '',
       status: 'pending',
@@ -453,9 +447,8 @@ export class AdminCalendarPage implements OnInit {
       adults: reservation.adults,
       children: reservation.children,
       totalGuests: reservation.totalGuests,
-      reservationDate: reservation.reservationDate,
-      startTime: reservation.startTime ?? '',
-      endTime: reservation.endTime ?? '',
+      startDate: reservation.startDate,
+      endDate: reservation.endDate,
       place: reservation.place,
       tourName: reservation.tourName,
       status: reservation.status,
@@ -539,9 +532,8 @@ export class AdminCalendarPage implements OnInit {
       adults: Number(value.adults),
       children: Number(value.children),
       totalGuests: Number(value.totalGuests),
-      reservationDate: value.reservationDate,
-      startTime: value.startTime || null,
-      endTime: value.endTime || null,
+      startDate: value.startDate,
+      endDate: value.endDate || value.startDate,
       place: value.place,
       tourName: value.tourName,
       status: value.status as ReservationRecord['status'],

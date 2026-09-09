@@ -31,8 +31,7 @@ interface ReservationRow {
   destination_id: string | null;
   tour_id: string | null;
   reservation_date: string;
-  start_time: string | null;
-  end_time: string | null;
+  end_date?: string | null;
   adults: number;
   children: number;
   total_guests: number;
@@ -61,6 +60,7 @@ interface SupabaseEnv {
 interface ReservationSchemaFeatures {
   place: boolean;
   tourName: boolean;
+  endDate: boolean;
 }
 
 let reservationSchemaFeatures: ReservationSchemaFeatures | null = null;
@@ -110,9 +110,8 @@ function mapReservationRow(row: ReservationRow) {
     email: row.customer?.email ?? '',
     phone: row.customer?.phone ?? '',
     whatsapp: row.customer?.whatsapp ?? '',
-    reservationDate: row.reservation_date,
-    startTime: row.start_time,
-    endTime: row.end_time,
+    startDate: row.reservation_date,
+    endDate: row.end_date ?? row.reservation_date,
     adults: Number(row.adults),
     children: Number(row.children),
     totalGuests: Number(row.total_guests),
@@ -131,28 +130,23 @@ function mapReservationRow(row: ReservationRow) {
   };
 }
 
+async function columnExists(client: SupabaseClient, table: string, column: string): Promise<boolean> {
+  const { error } = await client.from(table).select(column).limit(1);
+  return !error;
+}
+
 async function getReservationSchemaFeatures(client: SupabaseClient): Promise<ReservationSchemaFeatures> {
   if (reservationSchemaFeatures) {
     return reservationSchemaFeatures;
   }
 
-  const { data, error } = await client
-    .from('information_schema.columns')
-    .select('column_name')
-    .eq('table_schema', 'public')
-    .eq('table_name', 'reservations')
-    .in('column_name', ['place', 'tour_name']);
+  const [place, tourName, endDate] = await Promise.all([
+    columnExists(client, 'reservations', 'place'),
+    columnExists(client, 'reservations', 'tour_name'),
+    columnExists(client, 'reservations', 'end_date'),
+  ]);
 
-  if (error) {
-    reservationSchemaFeatures = { place: false, tourName: false };
-    return reservationSchemaFeatures;
-  }
-
-  const columnNames = new Set((data ?? []).map((item) => String((item as { column_name?: unknown }).column_name)));
-  reservationSchemaFeatures = {
-    place: columnNames.has('place'),
-    tourName: columnNames.has('tour_name'),
-  };
+  reservationSchemaFeatures = { place, tourName, endDate };
 
   return reservationSchemaFeatures;
 }
@@ -169,8 +163,7 @@ async function fetchReservations(client: SupabaseClient): Promise<ReservationRow
   const { data, error } = await client
     .from('reservations')
     .select('*, customer:customers(*), destination:destinations(*), tour:tours(*)')
-    .order('reservation_date', { ascending: false })
-    .order('start_time', { ascending: false });
+    .order('reservation_date', { ascending: false });
 
   if (error) {
     throw error;
@@ -412,9 +405,7 @@ export function registerAdminApiRoutes(server: Router): void {
           customer_id: customerId,
           destination_id: destinationId,
           tour_id: tourId,
-          reservation_date: String(body['reservationDate'] ?? ''),
-          start_time: body['startTime'] ? String(body['startTime']) : null,
-          end_time: body['endTime'] ? String(body['endTime']) : null,
+          reservation_date: String(body['startDate'] ?? ''),
           number_of_days: null,
           adults: Number(body['adults'] ?? 0),
           children: Number(body['children'] ?? 0),
@@ -439,6 +430,10 @@ export function registerAdminApiRoutes(server: Router): void {
 
         if (schema.tourName) {
           insertPayload['tour_name'] = tourName;
+        }
+
+        if (schema.endDate) {
+          insertPayload['end_date'] = String(body['endDate'] ?? body['startDate'] ?? '') || null;
         }
 
         const { data, error } = await client
@@ -496,9 +491,7 @@ export function registerAdminApiRoutes(server: Router): void {
           customer_id: customerId,
           destination_id: destinationId,
           tour_id: tourId,
-          reservation_date: body['reservationDate'],
-          start_time: body['startTime'] ?? null,
-          end_time: body['endTime'] ?? null,
+          reservation_date: body['startDate'],
           adults: body['adults'],
           children: body['children'],
           total_guests: body['totalGuests'],
@@ -518,6 +511,10 @@ export function registerAdminApiRoutes(server: Router): void {
 
         if (schema.tourName) {
           updatePayload['tour_name'] = tourName;
+        }
+
+        if (schema.endDate) {
+          updatePayload['end_date'] = body['endDate'] || body['startDate'] || null;
         }
 
         const { data, error } = await client

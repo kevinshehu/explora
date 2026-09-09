@@ -83,7 +83,7 @@ import { CustomerRecord, ReservationRecord } from '../admin.models';
                     <strong>{{ reservation.tourName }}</strong>
                     <p>{{ reservation.place }} · {{ reservation.totalGuests }} guests</p>
                   </div>
-                  <span>{{ reservation.reservationDate }} · {{ reservation.startTime || 'All day' }}</span>
+                  <span>{{ reservation.endDate && reservation.endDate !== reservation.startDate ? reservation.startDate + ' → ' + reservation.endDate : reservation.startDate }}</span>
                 </article>
               }
               @if (selectedReservations().length === 0) {
@@ -146,7 +146,7 @@ export class AdminCustomersPage implements OnInit {
 
     return this.reservations()
       .filter((reservation) => reservation.customerId === id)
-      .sort((a, b) => `${b.reservationDate} ${b.startTime || ''}`.localeCompare(`${a.reservationDate} ${a.startTime || ''}`));
+      .sort((a, b) => `${b.startDate} ${b.endDate}`.localeCompare(`${a.startDate} ${a.endDate}`));
   });
 
   ngOnInit(): void {
