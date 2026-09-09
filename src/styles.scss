@@ -97,7 +97,7 @@ a {
 }
 
 .topbar-grid {
-  min-height: 74px;
+  min-height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,12 +164,12 @@ a {
 .hero {
   position: relative;
   border-radius: var(--radius-xl);
-  margin-top: 28px;
+  margin-top: 18px;
   overflow: hidden;
-  min-height: min(70vh, 680px);
+  min-height: min(58vh, 520px);
   display: grid;
   align-items: end;
-  box-shadow: 0 24px 70px rgba(0, 95, 143, 0.18);
+  box-shadow: 0 14px 34px rgba(0, 95, 143, 0.14);
 }
 
 .hero-image {
@@ -193,29 +193,29 @@ a {
 .hero .container {
   position: relative;
   z-index: 2;
-  padding-block: 80px 74px;
+  padding-block: 52px 44px;
   color: white;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 10px;
 }
 
 .section-shell {
-  margin-top: 44px;
+  margin-top: 28px;
 }
 
 .hero h1 {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.55rem, 4.8vw, 5rem);
-  line-height: 1.05;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.08;
   max-width: 11ch;
   letter-spacing: 0;
 }
 
 .hero p {
   max-width: 58ch;
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 0.95rem;
+  line-height: 1.55;
 }
 
 .hero-kicker {
@@ -227,13 +227,13 @@ a {
 }
 
 .search-strip {
-  margin-top: var(--space-4);
+  margin-top: 10px;
   display: grid;
   grid-template-columns: 1.45fr repeat(2, minmax(138px, 0.85fr)) minmax(170px, 0.95fr);
-  gap: var(--space-3);
+  gap: 10px;
   align-items: end;
   width: min(100%, 1080px);
-  padding: 12px;
+  padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.34);
   background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 18px 48px rgba(5, 29, 42, 0.24);
@@ -268,10 +268,10 @@ a {
 .booking-form select,
 .booking-form textarea {
   width: 100%;
-  min-height: 42px;
+  min-height: 38px;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 8px 10px;
   background: #fbfdfd;
   color: var(--text);
   outline: none;
@@ -298,9 +298,9 @@ a.button-whatsapp,
 a.button-ghost {
   border: 0;
   border-radius: var(--radius-sm);
-  padding: 12px 18px;
+  padding: 9px 14px;
   font-weight: 700;
-  min-height: 42px;
+  min-height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -348,7 +348,7 @@ a.button-ghost {
 .hero-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -440,7 +440,7 @@ a.button-ghost {
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 14px;
   align-items: stretch;
 }
 
@@ -468,10 +468,10 @@ a.button-ghost {
 }
 
 .card-content {
-  padding: 18px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   min-height: 0;
   flex: 1;
 }
@@ -623,22 +623,22 @@ a.primary,
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 14px;
 }
 
 .feature-grid article {
   border-radius: var(--radius-xl);
   border: 1px solid var(--line);
   background: var(--surface-2);
-  padding: 20px;
+  padding: 14px;
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .calculator-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 14px;
   align-items: stretch;
 }
 
@@ -647,10 +647,10 @@ a.primary,
   border-radius: var(--radius-xl);
   background: var(--surface);
   box-shadow: 0 12px 30px rgba(16, 33, 43, 0.07);
-  padding: clamp(18px, 3vw, 24px);
+  padding: clamp(14px, 2vw, 18px);
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
   min-height: 100%;
 }
 
@@ -765,17 +765,17 @@ a.primary,
 .testimonial-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 12px;
 }
 
 .testimonial-card {
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
-  padding: 18px;
+  padding: 14px;
   background: #fbfdfd;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   min-height: 100%;
 }
 
@@ -804,10 +804,10 @@ a.primary,
 .cta-panel {
   background: linear-gradient(135deg, #e3f5f7, #fff4e7);
   border-radius: var(--radius-xl);
-  padding: clamp(22px, 4vw, 42px);
+  padding: clamp(16px, 3vw, 24px);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: 8px;
   align-items: flex-start;
 }
 
@@ -1029,10 +1029,10 @@ a.primary,
 }
 
 .site-footer {
-  margin-top: 48px;
+  margin-top: 32px;
   border-top: 1px solid var(--line);
   background: white;
-  padding: 36px 0;
+  padding: 26px 0;
 }
 
 .footer-grid {
@@ -1150,16 +1150,16 @@ a.primary,
 
   .hero {
     border-radius: 0;
-    margin-top: 12px;
-    min-height: 620px;
+    margin-top: 8px;
+    min-height: 500px;
   }
 
   .hero .container {
-    padding-block: 56px 56px;
+    padding-block: 34px 28px;
   }
 
   .section-shell {
-    margin-top: 32px;
+    margin-top: 20px;
   }
 
   .search-strip,
@@ -1188,7 +1188,7 @@ a.primary,
   .button-primary,
   .button-whatsapp,
   .search-strip button {
-    width: 100%;
+    width: auto;
   }
 
   .site-header .button-primary {
@@ -1196,7 +1196,7 @@ a.primary,
   }
 
   .hero-whatsapp {
-    align-self: stretch;
+    align-self: flex-start;
   }
 
   .hero-actions {
@@ -1257,12 +1257,12 @@ a.primary,
   top: 0;
   align-self: start;
   min-height: 100vh;
-  padding: 22px 18px;
+  padding: 14px 12px;
   background: rgba(255, 255, 255, 0.94);
   border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 12px;
   backdrop-filter: blur(10px);
 }
 
@@ -1297,7 +1297,7 @@ a.primary,
 
 .admin-nav {
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 
 .admin-nav-link {
@@ -1305,7 +1305,7 @@ a.primary,
   grid-template-columns: 20px 1fr;
   align-items: center;
   gap: 10px;
-  padding: 11px 13px;
+  padding: 8px 10px;
   border-radius: 16px;
   color: #29454f;
   font-weight: 700;
@@ -1328,8 +1328,8 @@ a.primary,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 26px 32px 20px;
+  gap: 10px;
+  padding: 14px 18px 12px;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(10px);
@@ -1337,7 +1337,7 @@ a.primary,
 
 .admin-content {
   min-width: 0;
-  padding: 28px 32px 44px;
+  padding: 14px 18px 20px;
   max-width: 1380px;
   width: 100%;
   margin: 0 auto;
@@ -1345,14 +1345,14 @@ a.primary,
 
 .admin-page-stack {
   display: grid;
-  gap: 24px;
+  gap: 14px;
 }
 
 .admin-page-header {
   display: flex;
   justify-content: space-between;
   align-items: end;
-  gap: 16px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
@@ -1372,19 +1372,19 @@ a.primary,
 .admin-card {
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid var(--line);
-  border-radius: 22px;
-  box-shadow: 0 8px 24px rgba(16, 33, 43, 0.06);
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(16, 33, 43, 0.05);
 }
 
 .admin-panel-card {
-  padding: 24px;
+  padding: 14px;
 }
 
 .admin-kpi-grid,
 .admin-split-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: 12px;
 }
 
 .admin-split-grid {
@@ -1410,7 +1410,7 @@ a.primary,
 .admin-list-stack,
 .admin-action-stack {
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .admin-breakdown-row,
@@ -1440,15 +1440,33 @@ a.primary,
 }
 
 .admin-list-item {
-  padding: 16px 18px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 12px;
   background: #fbfdfd;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   min-width: 0;
+}
+
+button.admin-list-item {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-list-item--column {
+  align-items: stretch;
+}
+
+.admin-customer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .admin-list-item p,
@@ -1460,7 +1478,7 @@ a.primary,
 .admin-filter-grid,
 .admin-form-grid {
   display: grid;
-  gap: 16px;
+  gap: 10px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
@@ -1472,7 +1490,7 @@ a.primary,
 .admin-form-grid label,
 .admin-auth-card label {
   display: grid;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
 }
 
@@ -1495,11 +1513,11 @@ a.primary,
 .admin-auth-card textarea {
   width: 100%;
   border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 12px 14px;
+  border-radius: 10px;
+  padding: 8px 10px;
   background: #fbfdfd;
   color: var(--text);
-  min-height: 46px;
+  min-height: 36px;
   outline: none;
 }
 
@@ -1516,7 +1534,7 @@ a.primary,
 
 .admin-form-grid textarea,
 .admin-auth-card textarea {
-  min-height: 110px;
+  min-height: 80px;
   resize: vertical;
 }
 
@@ -1532,15 +1550,22 @@ a.primary,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .admin-button {
   border: 0;
-  border-radius: 14px;
-  padding: 12px 16px;
-  min-height: 46px;
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-height: 34px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1650,7 +1675,7 @@ a.primary,
 
 .admin-calendar-grid {
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 
 .admin-calendar-grid--month {
@@ -1667,7 +1692,7 @@ a.primary,
 }
 
 .admin-calendar-head {
-  padding: 13px;
+  padding: 8px;
   text-align: center;
   font-weight: 800;
   color: #29454f;
@@ -1675,11 +1700,16 @@ a.primary,
 }
 
 .admin-calendar-cell {
-  min-height: 140px;
-  padding: 12px;
+  min-height: 112px;
+  padding: 8px;
   display: grid;
-  gap: 10px;
+  gap: 6px;
   align-content: start;
+}
+
+.admin-calendar-cell--clickable,
+.admin-calendar-day-row--clickable {
+  cursor: pointer;
 }
 
 .admin-calendar-cell.is-muted {
@@ -1688,23 +1718,34 @@ a.primary,
 
 .admin-calendar-events {
   display: grid;
-  gap: 8px;
+  gap: 6px;
+}
+
+.admin-calendar-cell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .admin-calendar-events--row {
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
 .admin-calendar-events--list {
-  gap: 12px;
+  gap: 8px;
 }
 
 .admin-calendar-event {
   display: grid;
-  gap: 4px;
-  padding: 10px 12px;
-  border-radius: 14px;
+  gap: 2px;
+  padding: 6px 8px;
+  border-radius: 10px;
   border: 1px solid transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.82rem;
 }
 
 .admin-calendar-event strong,
@@ -1719,13 +1760,13 @@ a.primary,
 
 .admin-calendar-stack,
 .admin-calendar-day-view {
-  padding: 16px;
+  padding: 10px;
 }
 
 .admin-calendar-day-row {
-  padding: 14px;
+  padding: 10px;
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .admin-calendar-day-header {
@@ -1734,6 +1775,61 @@ a.primary,
   align-items: center;
   gap: 12px;
   margin-bottom: 12px;
+}
+
+.admin-slot-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.admin-slot-row {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.admin-slot-time {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-height: 30px;
+  padding: 4px 6px;
+  background: var(--surface-2);
+  color: #29454f;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 33, 43, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 60;
+  padding: 16px;
+}
+
+.admin-modal {
+  width: min(100%, 980px);
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: white;
+  box-shadow: 0 16px 36px rgba(16, 33, 43, 0.24);
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .admin-segmented-control {
@@ -1747,7 +1843,7 @@ a.primary,
 .admin-segmented-control button {
   border: 0;
   background: transparent;
-  padding: 10px 14px;
+  padding: 6px 10px;
   font-weight: 800;
   color: #29454f;
   cursor: pointer;
@@ -1767,13 +1863,13 @@ a.primary,
 
 .admin-auth-card {
   width: min(100%, 540px);
-  border-radius: 28px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid var(--line);
-  box-shadow: 0 18px 42px rgba(16, 33, 43, 0.12);
-  padding: 28px;
+  box-shadow: 0 12px 24px rgba(16, 33, 43, 0.1);
+  padding: 16px;
   display: grid;
-  gap: 18px;
+  gap: 10px;
 }
 
 .admin-error {
@@ -1841,11 +1937,15 @@ a.primary,
   .admin-button,
   .admin-form-actions .admin-button,
   .admin-table-toolbar .admin-button {
-    width: 100%;
+    width: auto;
   }
 
   .admin-list-item {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .admin-slot-row {
+    grid-template-columns: 1fr;
   }
 }

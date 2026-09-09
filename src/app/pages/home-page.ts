@@ -36,12 +36,6 @@ const heroImage =
             Ask Explora
           </a>
         </div>
-        <div class="discovery-steps" aria-label="Explora travel flow">
-          <span>Discover</span>
-          <span>Choose</span>
-          <span>Calculate price</span>
-          <span>Book via WhatsApp</span>
-        </div>
       </div>
     </section>
 
@@ -128,7 +122,6 @@ const heroImage =
             <app-whatsapp-icon />
             Plan on WhatsApp
           </a>
-          <a class="button-ghost" routerLink="/destinations">Explore destinations</a>
         </div>
       </div>
     </section>

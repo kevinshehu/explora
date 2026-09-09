@@ -41,19 +41,7 @@ export const appRoutes: Routes = [
         canActivate: [adminAuthGuard],
         component: AdminShellComponent,
         children: [
-          { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-          {
-            path: 'dashboard',
-            loadComponent: () => import('./admin/dashboard/admin-dashboard.page').then((page) => page.AdminDashboardPage),
-          },
-          {
-            path: 'reservations',
-            loadComponent: () => import('./admin/reservations/admin-reservations.page').then((page) => page.AdminReservationsPage),
-          },
-          {
-            path: 'reservations/:id',
-            loadComponent: () => import('./admin/reservations/admin-reservation-details.page').then((page) => page.AdminReservationDetailsPage),
-          },
+          { path: '', pathMatch: 'full', redirectTo: 'calendar' },
           {
             path: 'calendar',
             loadComponent: () => import('./admin/calendar/admin-calendar.page').then((page) => page.AdminCalendarPage),
@@ -62,22 +50,7 @@ export const appRoutes: Routes = [
             path: 'customers',
             loadComponent: () => import('./admin/customers/admin-customers.page').then((page) => page.AdminCustomersPage),
           },
-          {
-            path: 'customers/:id',
-            loadComponent: () => import('./admin/customers/admin-customer-details.page').then((page) => page.AdminCustomerDetailsPage),
-          },
-          {
-            path: 'destinations',
-            loadComponent: () => import('./admin/destinations/admin-destinations.page').then((page) => page.AdminDestinationsPage),
-          },
-          {
-            path: 'tours',
-            loadComponent: () => import('./admin/tours/admin-tours.page').then((page) => page.AdminToursPage),
-          },
-          {
-            path: 'settings',
-            loadComponent: () => import('./admin/settings/admin-settings.page').then((page) => page.AdminSettingsPage),
-          },
+          { path: '**', redirectTo: 'calendar' },
         ],
       },
     ],

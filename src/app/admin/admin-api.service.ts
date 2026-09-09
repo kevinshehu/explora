@@ -3,28 +3,27 @@ import { Injectable, inject } from '@angular/core';
 import {
   CustomerRecord,
   CustomerUpsertPayload,
-  DashboardData,
-  DestinationRecord,
-  DestinationUpsertPayload,
-  ReservationFilters,
   ReservationRecord,
   ReservationUpsertPayload,
-  TourRecord,
-  TourUpsertPayload,
+  ReservationStatus,
 } from './admin.models';
 
 @Injectable({ providedIn: 'root' })
 export class AdminApiService {
   private readonly http = inject(HttpClient);
 
-  getDashboard() {
-    return this.http.get<DashboardData>('/api/admin/dashboard');
-  }
+  listReservations(filters: { query?: string; status?: ReservationStatus | 'all'; from?: string; to?: string } = {}) {
+    let params = new HttpParams();
 
-  listReservations(filters: ReservationFilters = {}) {
-    return this.http.get<ReservationRecord[]>('/api/admin/reservations', {
-      params: this.buildReservationParams(filters),
-    });
+    for (const [key, value] of Object.entries(filters)) {
+      if (value === undefined || value === null || value === '' || value === 'all') {
+        continue;
+      }
+
+      params = params.set(key, String(value));
+    }
+
+    return this.http.get<ReservationRecord[]>('/api/admin/reservations', { params });
   }
 
   getReservation(id: string) {
@@ -60,49 +59,7 @@ export class AdminApiService {
     return this.http.patch<CustomerRecord>(`/api/admin/customers/${id}`, payload);
   }
 
-  listDestinations() {
-    return this.http.get<DestinationRecord[]>('/api/admin/destinations');
-  }
-
-  createDestination(payload: DestinationUpsertPayload) {
-    return this.http.post<DestinationRecord>('/api/admin/destinations', payload);
-  }
-
-  updateDestination(id: string, payload: Partial<DestinationUpsertPayload>) {
-    return this.http.patch<DestinationRecord>(`/api/admin/destinations/${id}`, payload);
-  }
-
-  deleteDestination(id: string) {
-    return this.http.delete<void>(`/api/admin/destinations/${id}`);
-  }
-
-  listTours() {
-    return this.http.get<TourRecord[]>('/api/admin/tours');
-  }
-
-  createTour(payload: TourUpsertPayload) {
-    return this.http.post<TourRecord>('/api/admin/tours', payload);
-  }
-
-  updateTour(id: string, payload: Partial<TourUpsertPayload>) {
-    return this.http.patch<TourRecord>(`/api/admin/tours/${id}`, payload);
-  }
-
-  deleteTour(id: string) {
-    return this.http.delete<void>(`/api/admin/tours/${id}`);
-  }
-
-  private buildReservationParams(filters: ReservationFilters): HttpParams {
-    let params = new HttpParams();
-
-    for (const [key, value] of Object.entries(filters)) {
-      if (value === undefined || value === null || value === '' || value === 'all') {
-        continue;
-      }
-
-      params = params.set(key, value);
-    }
-
-    return params;
+  deleteCustomer(id: string) {
+    return this.http.delete<void>(`/api/admin/customers/${id}`);
   }
 }

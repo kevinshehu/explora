@@ -45,7 +45,7 @@ export class AdminLoginPage {
 
   constructor() {
     if (this.session.authenticated()) {
-      void this.router.navigateByUrl('/admin/dashboard');
+      void this.router.navigateByUrl('/admin/calendar');
     }
   }
 
@@ -63,6 +63,6 @@ export class AdminLoginPage {
     }
 
     this.errorMessage = '';
-    void this.router.navigateByUrl('/admin/dashboard');
+    void this.router.navigateByUrl('/admin/calendar');
   }
 }
