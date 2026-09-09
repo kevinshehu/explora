@@ -1601,6 +1601,35 @@ button.admin-list-item {
   resize: vertical;
 }
 
+.admin-form-section {
+  grid-column: 1 / -1;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #f9fbfc;
+  padding: 12px;
+}
+
+.admin-form-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.admin-form-section-header span {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #29454f;
+}
+
+.admin-form-section-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .admin-form-span-2,
 .admin-form-actions,
 .admin-table-toolbar {

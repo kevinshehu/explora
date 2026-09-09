@@ -144,103 +144,134 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
           </header>
 
           <form class="admin-form-grid admin-form-grid--wide" [formGroup]="reservationForm" (ngSubmit)="saveReservation()">
-            <label>
-              <span>Customer</span>
-              <select formControlName="customerId" (change)="applyCustomerSelection()">
-                <option value="">Select existing customer or enter details</option>
-                @for (customer of customers(); track customer.id) {
-                  <option [value]="customer.id">{{ customer.fullName }} · {{ customer.phone }}</option>
-                }
-              </select>
-            </label>
-            <label>
-              <span>Customer name</span>
-              <input formControlName="customerName" />
-            </label>
-            <label>
-              <span>Phone / WhatsApp</span>
-              <input formControlName="phone" />
-            </label>
-            <label>
-              <span>Email</span>
-              <input type="email" formControlName="email" />
-            </label>
-            <label>
-              <span>WhatsApp</span>
-              <input formControlName="whatsapp" />
-            </label>
-            <label>
-              <span>Adults</span>
-              <input type="number" min="0" formControlName="adults" />
-            </label>
-            <label>
-              <span>Children</span>
-              <input type="number" min="0" formControlName="children" />
-            </label>
-            <label>
-              <span>Total guests</span>
-              <input type="number" min="1" formControlName="totalGuests" />
-            </label>
-            <label>
-              <span>Date</span>
-              <input type="date" formControlName="reservationDate" />
-            </label>
-            <label>
-              <span>Start time</span>
-              <input type="time" formControlName="startTime" />
-            </label>
-            <label>
-              <span>End time</span>
-              <input type="time" formControlName="endTime" />
-            </label>
-            <label>
-              <span>Place</span>
-              <input formControlName="place" />
-            </label>
-            <label>
-              <span>Tour / experience name</span>
-              <input formControlName="tourName" />
-            </label>
-            <label>
-              <span>Status</span>
-              <select formControlName="status">
-                @for (status of statusOptions; track status.value) {
-                  <option [value]="status.value">{{ status.label }}</option>
-                }
-              </select>
-            </label>
-            <label>
-              <span>Pickup location</span>
-              <input formControlName="pickupLocation" />
-            </label>
-            <label class="admin-form-span-2">
-              <span>Notes</span>
-              <textarea rows="3" formControlName="notes"></textarea>
-            </label>
-            <label>
-              <span>Price</span>
-              <input type="number" min="0" formControlName="price" />
-            </label>
-            <label>
-              <span>Additional costs</span>
-              <input type="number" min="0" formControlName="additionalCosts" />
-            </label>
-            <label>
-              <span>Discount</span>
-              <input type="number" min="0" formControlName="discount" />
-            </label>
-            <label>
-              <span>Total price</span>
-              <input type="number" min="0" formControlName="totalPrice" />
-            </label>
-            <label>
-              <span>Currency</span>
-              <select formControlName="currency">
-                @for (currency of currencies; track currency) {
-                  <option [value]="currency">{{ currency }}</option>
-                }
-              </select>
-            </label>
+            <section class="admin-form-section admin-form-span-2">
+              <header class="admin-form-section-header">
+                <span>Client</span>
+              </header>
+              <div class="admin-form-section-grid">
+                <label>
+                  <span>Customer</span>
+                  <select formControlName="customerId" (change)="applyCustomerSelection()">
+                    <option value="">Select existing customer or enter details</option>
+                    @for (customer of customers(); track customer.id) {
+                      <option [value]="customer.id">{{ customer.fullName }} · {{ customer.phone }}</option>
+                    }
+                  </select>
+                </label>
+                <label>
+                  <span>Customer name</span>
+                  <input formControlName="customerName" />
+                </label>
+                <label>
+                  <span>Phone / WhatsApp</span>
+                  <input formControlName="phone" />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input type="email" formControlName="email" />
+                </label>
+                <label>
+                  <span>WhatsApp</span>
+                  <input formControlName="whatsapp" />
+                </label>
+              </div>
+            </section>
+
+            <section class="admin-form-section admin-form-span-2">
+              <header class="admin-form-section-header">
+                <span>Dates & schedule</span>
+              </header>
+              <div class="admin-form-section-grid">
+                <label>
+                  <span>Date</span>
+                  <input type="date" formControlName="reservationDate" />
+                </label>
+                <label>
+                  <span>Start time</span>
+                  <input type="time" formControlName="startTime" />
+                </label>
+                <label>
+                  <span>End time</span>
+                  <input type="time" formControlName="endTime" />
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select formControlName="status">
+                    @for (status of statusOptions; track status.value) {
+                      <option [value]="status.value">{{ status.label }}</option>
+                    }
+                  </select>
+                </label>
+              </div>
+            </section>
+
+            <section class="admin-form-section admin-form-span-2">
+              <header class="admin-form-section-header">
+                <span>Trip details</span>
+              </header>
+              <div class="admin-form-section-grid">
+                <label>
+                  <span>Place</span>
+                  <input formControlName="place" />
+                </label>
+                <label>
+                  <span>Tour / experience name</span>
+                  <input formControlName="tourName" />
+                </label>
+                <label>
+                  <span>Pickup location</span>
+                  <input formControlName="pickupLocation" />
+                </label>
+                <label class="admin-form-span-2">
+                  <span>Notes</span>
+                  <textarea rows="3" formControlName="notes"></textarea>
+                </label>
+              </div>
+            </section>
+
+            <section class="admin-form-section admin-form-span-2">
+              <header class="admin-form-section-header">
+                <span>Guests & pricing</span>
+              </header>
+              <div class="admin-form-section-grid">
+                <label>
+                  <span>Adults</span>
+                  <input type="number" min="0" formControlName="adults" />
+                </label>
+                <label>
+                  <span>Children</span>
+                  <input type="number" min="0" formControlName="children" />
+                </label>
+                <label>
+                  <span>Total guests</span>
+                  <input type="number" min="1" formControlName="totalGuests" />
+                </label>
+                <label>
+                  <span>Price</span>
+                  <input type="number" min="0" formControlName="price" />
+                </label>
+                <label>
+                  <span>Additional costs</span>
+                  <input type="number" min="0" formControlName="additionalCosts" />
+                </label>
+                <label>
+                  <span>Discount</span>
+                  <input type="number" min="0" formControlName="discount" />
+                </label>
+                <label>
+                  <span>Total price</span>
+                  <input type="number" min="0" formControlName="totalPrice" />
+                </label>
+                <label>
+                  <span>Currency</span>
+                  <select formControlName="currency">
+                    @for (currency of currencies; track currency) {
+                      <option [value]="currency">{{ currency }}</option>
+                    }
+                  </select>
+                </label>
+              </div>
+            </section>
 
             <div class="admin-form-actions">
               @if (editingReservationId()) {
