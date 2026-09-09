@@ -3,6 +3,11 @@ command = "npx ng build --configuration production"
 publish = "dist/explora/browser"
 
 [[redirects]]
+from = "/api/admin/*"
+to = "/.netlify/functions/admin-api/:splat"
+status = 200
+
+[[redirects]]
 from = "/*"
 to = "/index.html"
 status = 200
