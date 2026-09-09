@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-  destinations,
-  tours,
-} from '../data/travel-data';
+import { destinations } from '../data/travel-data';
 import { DestinationCard } from '../shared/components/destination-card';
 import { SectionTitle } from '../shared/components/section-title';
-import { TourCard } from '../shared/components/tour-card';
 import { WhatsappIcon } from '../shared/components/whatsapp-icon';
 import { whatsappUrl } from '../shared/whatsapp';
 
@@ -16,7 +12,7 @@ const heroImage =
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [DestinationCard, TourCard, SectionTitle, RouterLink, WhatsappIcon],
+  imports: [DestinationCard, SectionTitle, RouterLink, WhatsappIcon],
   template: `
     <section class="hero section-shell">
       <img class="hero-image" [src]="heroImage" alt="Albanian Riviera coastline" />
@@ -49,23 +45,10 @@ const heroImage =
       </div>
     </section>
 
-    <section class="container section-shell">
-      <app-section-title
-        label="Experiences"
-        title="Featured tours"
-        description="Popular options with transparent pricing."
-      />
-      <div class="grid-3">
-        @for (tour of featuredTours; track tour.id) {
-          <app-tour-card [tour]="tour" />
-        }
-      </div>
-    </section>
   `,
 })
 export class HomePage {
   heroImage = heroImage;
-  rivieraDestinations = destinations.slice(0, 8);
-  featuredTours = tours.slice(0, 3);
+  rivieraDestinations = destinations.slice(0, 6);
   heroWhatsAppUrl = whatsappUrl('Hi! I want to book a Riviera trip with Explora.');
 }
