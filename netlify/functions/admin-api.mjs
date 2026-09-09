@@ -9,11 +9,10 @@ const JSON_HEADERS = {
 };
 
 function jsonResponse(statusCode, body) {
-  return {
-    statusCode,
+  return new Response(JSON.stringify(body), {
+    status: statusCode,
     headers: JSON_HEADERS,
-    body: JSON.stringify(body),
-  };
+  });
 }
 
 function normalizePath(pathname) {
