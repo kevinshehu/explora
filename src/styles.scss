@@ -90,18 +90,20 @@ a {
 }
 
 .site-header {
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid rgba(16, 33, 43, 0.08);
+  background: rgba(255, 255, 255, 0.93);
+  border-bottom: 1px solid rgba(16, 33, 43, 0.06);
   position: sticky;
   top: 0;
   z-index: 40;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(15, 31, 41, 0.03);
 }
 
 .topbar-grid {
   min-height: 72px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 16px;
 }
 
@@ -150,21 +152,62 @@ a {
   margin-left: auto;
 }
 
-.desktop-nav a {
+.desktop-nav a,
+.mobile-nav a {
   color: #2d4651;
   border-radius: 999px;
-  padding: 8px 11px;
-  font-size: 0.78rem;
+  padding: 9px 13px;
+  font-size: 0.79rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  text-transform: none;
   transition: all 160ms ease;
+  white-space: nowrap;
 }
 
 .desktop-nav a.active,
-.desktop-nav a:hover {
-  background: #f0f8f8;
+.desktop-nav a:hover,
+.mobile-nav a.active,
+.mobile-nav a:hover {
+  background: rgba(12, 94, 115, 0.07);
   color: var(--accent-2);
+}
+
+.nav-cta {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white !important;
+  box-shadow: 0 10px 24px rgba(19, 91, 116, 0.18);
+  border: 1px solid rgba(19, 91, 116, 0.08);
+}
+
+.nav-cta.active,
+.nav-cta:hover {
+  background: linear-gradient(135deg, #0b6a7f, #123b52) !important;
+  color: white !important;
+}
+
+.mobile-nav-wrap {
+  display: none;
+  padding-bottom: 10px;
+}
+
+.mobile-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding: 0 2px 6px;
+  scroll-snap-type: x proximity;
+}
+
+.mobile-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-nav a {
+  background: rgba(12, 36, 48, 0.04);
+  border: 1px solid rgba(16, 33, 43, 0.06);
 }
 
 .hero {
@@ -1812,13 +1855,44 @@ a.primary,
     width: min(var(--max-width), calc(100% - 1.25rem));
   }
 
-  .desktop-nav {
-    display: none;
+  .site-header {
+    padding-top: 6px;
   }
 
   .topbar-grid {
     justify-content: center;
-    min-height: 68px;
+    min-height: 58px;
+    gap: 10px;
+  }
+
+  .brand {
+    font-size: 0.82rem;
+  }
+
+  .brand-mark {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav-wrap {
+    display: block;
+  }
+
+  .mobile-nav {
+    justify-content: flex-start;
+    padding-bottom: 8px;
+  }
+
+  .mobile-nav a {
+    font-size: 0.72rem;
+    padding: 8px 10px;
+    scroll-snap-align: start;
+    background: rgba(12, 36, 48, 0.035);
   }
 
   .hero {

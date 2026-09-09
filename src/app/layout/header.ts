@@ -18,13 +18,23 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
         <nav class="desktop-nav" aria-label="Main navigation">
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-          <a routerLink="/destinations" routerLinkActive="active">All Villas</a>
-          <a routerLink="/destinations" routerLinkActive="active">Destinations</a>
+          <a routerLink="/destinations" routerLinkActive="active">Villas</a>
           <a routerLink="/tours" routerLinkActive="active">Experiences</a>
           <a routerLink="/booking" routerLinkActive="active">Booking</a>
           <a routerLink="/concierge" routerLinkActive="active">Concierge</a>
-          <a routerLink="/about" routerLinkActive="active">About us</a>
-          <a routerLink="/contact" routerLinkActive="active">Contact</a>
+          <a routerLink="/about" routerLinkActive="active">About</a>
+          <a routerLink="/contact" class="nav-cta" routerLinkActive="active">Contact</a>
+        </nav>
+      </div>
+
+      <div class="container mobile-nav-wrap">
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+          <a routerLink="/destinations" routerLinkActive="active">Villas</a>
+          <a routerLink="/tours" routerLinkActive="active">Experiences</a>
+          <a routerLink="/booking" routerLinkActive="active">Booking</a>
+          <a routerLink="/concierge" routerLinkActive="active">Concierge</a>
+          <a routerLink="/about" routerLinkActive="active">About</a>
         </nav>
       </div>
     </header>
