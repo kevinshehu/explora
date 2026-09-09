@@ -1,4 +1,4 @@
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf } from '@angular/common';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -23,7 +23,7 @@ const heroImage =
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [NgForOf, NgIf, ReactiveFormsModule, DestinationCard, TourCard, TestimonialCard, SectionTitle, RouterLink],
+  imports: [NgForOf, ReactiveFormsModule, DestinationCard, TourCard, TestimonialCard, SectionTitle, RouterLink],
   template: `
     <section class="hero section-shell">
       <img class="hero-image" [src]="heroImage" alt="Traveler on mountain" />
@@ -139,7 +139,7 @@ const heroImage =
       <div class="cta-panel">
         <h2>Ready to begin your next journey?</h2>
         <p>Browse all destinations or plan a custom experience today.</p>
-        <div>
+        <div class="cta-actions">
           <a class="button-primary" routerLink="/destinations">Explore destinations</a>
           <a class="button-ghost" routerLink="/tours">See tours</a>
         </div>
