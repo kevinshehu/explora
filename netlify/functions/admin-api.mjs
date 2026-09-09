@@ -22,10 +22,12 @@ function normalizePath(pathname) {
   }
 
   const cleanPath = pathname.split('?')[0];
-  const prefix = '/.netlify/functions/admin-api';
+  const prefixes = ['/api/admin', '/.netlify/functions/admin-api'];
 
-  if (cleanPath.startsWith(prefix)) {
-    return cleanPath.slice(prefix.length) || '/';
+  for (const prefix of prefixes) {
+    if (cleanPath.startsWith(prefix)) {
+      return cleanPath.slice(prefix.length) || '/';
+    }
   }
 
   return cleanPath;
