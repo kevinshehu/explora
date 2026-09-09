@@ -10,27 +10,25 @@ import { whatsappUrl } from '../shared/whatsapp';
   template: `
     <footer class="site-footer">
       <div class="container footer-grid">
-        <div>
+        <div class="footer-brand">
           <h3>Explora</h3>
-          <p>Premium travel planning for the Albanian Riviera and Southern Albania.</p>
+          <p>Compact travel planning for the Albanian Riviera.</p>
         </div>
-        <div>
-          <h4>Explore</h4>
-          <a routerLink="/destinations">Riviera destinations</a>
-          <a routerLink="/tours">Packages</a>
-          <a routerLink="/booking">Plan by WhatsApp</a>
-        </div>
-        <div>
-          <h4>Support</h4>
-          <a routerLink="/booking">Travel support</a>
+        <nav class="footer-links" aria-label="Footer links">
+          <a routerLink="/destinations">Destinations</a>
+          <a routerLink="/tours">Tours</a>
+          <a routerLink="/booking">Booking</a>
+        </nav>
+        <div class="footer-contact">
           <a class="footer-whatsapp" [href]="contactWhatsAppUrl" target="_blank" rel="noopener">
             <app-whatsapp-icon />
             WhatsApp
           </a>
-          <a routerLink="/destinations">Riviera guide</a>
         </div>
       </div>
-      <p class="copyright">© 2026 Explora. Albanian Riviera travel experiences.</p>
+      <div class="container">
+        <p class="copyright">© 2026 Explora</p>
+      </div>
     </footer>
   `,
 })
