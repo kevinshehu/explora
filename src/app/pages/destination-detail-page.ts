@@ -5,11 +5,13 @@ import { destinations, tours } from '../data/travel-data';
 import { Destination } from '../shared/models/travel.model';
 import { TourCard } from '../shared/components/tour-card';
 import { SectionTitle } from '../shared/components/section-title';
+import { WhatsappIcon } from '../shared/components/whatsapp-icon';
+import { whatsappUrl } from '../shared/whatsapp';
 
 @Component({
   selector: 'app-destination-detail-page',
   standalone: true,
-  imports: [NgIf, NgForOf, CurrencyPipe, RouterLink, TourCard, SectionTitle],
+  imports: [NgIf, NgForOf, CurrencyPipe, RouterLink, TourCard, SectionTitle, WhatsappIcon],
   template: `
     <section *ngIf="destination" class="container section-shell">
       <a class="back-link" routerLink="/destinations">← Back to destinations</a>
@@ -47,7 +49,11 @@ import { SectionTitle } from '../shared/components/section-title';
           <p><strong>Category</strong> {{ destination.category }}</p>
           <p><strong>Available experiences</strong> {{ destination.experiences }}</p>
           <p><strong>Best for</strong> {{ destination.tags.join(', ') }}</p>
-          <a class="button-primary" [routerLink]="['/booking']" [queryParams]="{ destination: destination.slug }">Book destination</a>
+          <a class="button-whatsapp" [href]="destinationWhatsAppUrl" target="_blank" rel="noopener">
+            <app-whatsapp-icon />
+            Ask on WhatsApp
+          </a>
+          <a class="button-primary" [routerLink]="['/booking']" [queryParams]="{ destination: destination.slug }">Plan details</a>
           <a class="button-ghost" [routerLink]="['/tours']" [queryParams]="{ destination: destination.city }">View package list</a>
         </aside>
       </div>
@@ -73,6 +79,7 @@ export class DestinationDetailPage {
 
   destination: Destination | undefined = undefined;
   relatedTours = tours.filter((tour) => false);
+  destinationWhatsAppUrl = whatsappUrl();
 
   constructor() {
     const slug = this.route.snapshot.paramMap.get('slug');
@@ -83,6 +90,9 @@ export class DestinationDetailPage {
     }
     this.relatedTours = tours.filter(
       (tour) => tour.destinationId === this.destination!.id,
+    );
+    this.destinationWhatsAppUrl = whatsappUrl(
+      `Hi! I'm interested in the ${this.destination.city} experience. Can you provide more information?`,
     );
   }
 }

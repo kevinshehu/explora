@@ -8,11 +8,13 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { destinations, tours } from '../data/travel-data';
 import { Tour } from '../shared/models/travel.model';
+import { WhatsappIcon } from '../shared/components/whatsapp-icon';
+import { whatsappUrl } from '../shared/whatsapp';
 
 @Component({
   selector: 'app-booking-page',
   standalone: true,
-  imports: [NgForOf, NgIf, ReactiveFormsModule, CurrencyPipe],
+  imports: [NgForOf, NgIf, ReactiveFormsModule, CurrencyPipe, WhatsappIcon],
   template: `
     <section class="container section-shell">
       <div class="detail-title-group">
@@ -61,7 +63,7 @@ import { Tour } from '../shared/models/travel.model';
           </label>
 
           <button class="button-primary" type="submit" [disabled]="bookingForm.invalid || redirecting">
-            <span class="material-symbols-outlined" aria-hidden="true">chat</span>
+            <app-whatsapp-icon />
             Send to WhatsApp
           </button>
         </form>
@@ -205,6 +207,6 @@ export class BookingPage {
   }
 
   private whatsAppUrl(message: string): string {
-    return `https://wa.me/?text=${encodeURIComponent(message)}`;
+    return whatsappUrl(message);
   }
 }

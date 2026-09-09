@@ -291,8 +291,10 @@ a {
 
 .search-strip button,
 .button-primary,
+.button-whatsapp,
 .button-ghost,
 a.button-primary,
+a.button-whatsapp,
 a.button-ghost {
   border: 0;
   border-radius: var(--radius-sm);
@@ -312,6 +314,7 @@ a.button-ghost {
 
 .search-strip button:hover,
 .button-primary:hover,
+.button-whatsapp:hover,
 .button-ghost:hover {
   transform: translateY(-1px);
 }
@@ -330,6 +333,51 @@ a.button-ghost {
   border: 1px solid var(--line);
   background: white;
   color: #173341;
+}
+
+.button-whatsapp {
+  background: #25d366;
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.22);
+}
+
+.hero-whatsapp {
+  align-self: flex-start;
+}
+
+.whatsapp-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
+.floating-whatsapp {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 30;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #25d366;
+  color: white;
+  box-shadow: 0 16px 34px rgba(16, 33, 43, 0.22);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 42px rgba(16, 33, 43, 0.28);
+}
+
+.floating-whatsapp .whatsapp-icon {
+  width: 29px;
+  height: 29px;
 }
 
 .section-label {
@@ -817,6 +865,12 @@ a.primary,
   margin-top: 8px;
 }
 
+.site-footer .footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .copyright {
   margin: 32px 0 0;
   color: #7d9098;
@@ -835,7 +889,8 @@ a.primary,
 }
 
 .cta-row .button-ghost,
-.cta-row .button-primary {
+.cta-row .button-primary,
+.cta-row .button-whatsapp {
   width: auto;
 }
 
@@ -944,12 +999,24 @@ a.primary,
 
   .button-ghost,
   .button-primary,
+  .button-whatsapp,
   .search-strip button {
     width: 100%;
   }
 
   .site-header .button-primary {
     width: auto;
+  }
+
+  .hero-whatsapp {
+    align-self: stretch;
+  }
+
+  .floating-whatsapp {
+    right: 16px;
+    bottom: 16px;
+    width: 52px;
+    height: 52px;
   }
 
   .detail-price {

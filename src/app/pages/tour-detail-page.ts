@@ -3,11 +3,13 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { tours } from '../data/travel-data';
 import { Tour } from '../shared/models/travel.model';
+import { WhatsappIcon } from '../shared/components/whatsapp-icon';
+import { whatsappUrl } from '../shared/whatsapp';
 
 @Component({
   selector: 'app-tour-detail-page',
   standalone: true,
-  imports: [NgIf, NgForOf, CurrencyPipe, RouterLink],
+  imports: [NgIf, NgForOf, CurrencyPipe, RouterLink, WhatsappIcon],
   template: `
     <section *ngIf="tour" class="container section-shell">
       <a class="back-link" routerLink="/tours">← Back to tours</a>
@@ -59,7 +61,11 @@ import { Tour } from '../shared/models/travel.model';
           <p><strong>Category</strong> {{ tour.category }}</p>
           <p><strong>Reviews</strong> {{ tour.reviews }}</p>
           <p><strong>Duration</strong> {{ tour.duration }}</p>
-          <a class="button-primary" [routerLink]="['/booking']" [queryParams]="{ tour: tour.slug }">Book now</a>
+          <a class="button-whatsapp" [href]="tourWhatsAppUrl" target="_blank" rel="noopener">
+            <app-whatsapp-icon />
+            Ask on WhatsApp
+          </a>
+          <a class="button-primary" [routerLink]="['/booking']" [queryParams]="{ tour: tour.slug }">Plan details</a>
         </aside>
       </div>
     </section>
@@ -75,12 +81,17 @@ export class TourDetailPage {
   private readonly router = inject(Router);
 
   tour: Tour | undefined;
+  tourWhatsAppUrl = whatsappUrl();
 
   constructor() {
     const slug = this.route.snapshot.paramMap.get('slug');
     this.tour = tours.find((item) => item.slug === slug);
     if (!this.tour) {
       this.router.navigate(['/tours']);
+      return;
     }
+    this.tourWhatsAppUrl = whatsappUrl(
+      `Hi! I'm interested in the ${this.tour.title} experience. Can you provide more information?`,
+    );
   }
 }

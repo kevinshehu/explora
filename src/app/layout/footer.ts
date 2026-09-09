@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { WhatsappIcon } from '../shared/components/whatsapp-icon';
+import { whatsappUrl } from '../shared/whatsapp';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, WhatsappIcon],
   template: `
     <footer class="site-footer">
       <div class="container footer-grid">
@@ -21,7 +23,10 @@ import { RouterLink } from '@angular/router';
         <div>
           <h4>Support</h4>
           <a routerLink="/booking">Travel support</a>
-          <a href="mailto:hello@explora.al">Contact</a>
+          <a class="footer-whatsapp" [href]="contactWhatsAppUrl" target="_blank" rel="noopener">
+            <app-whatsapp-icon />
+            WhatsApp
+          </a>
           <a routerLink="/destinations">Riviera guide</a>
         </div>
       </div>
@@ -29,4 +34,6 @@ import { RouterLink } from '@angular/router';
     </footer>
   `,
 })
-export class Footer {}
+export class Footer {
+  contactWhatsAppUrl = whatsappUrl('Hi! I would like to contact Explora about the Albanian Riviera.');
+}

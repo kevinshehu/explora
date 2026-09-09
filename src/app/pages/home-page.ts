@@ -15,6 +15,8 @@ import { DestinationCard } from '../shared/components/destination-card';
 import { SectionTitle } from '../shared/components/section-title';
 import { TestimonialCard } from '../shared/components/testimonial-card';
 import { TourCard } from '../shared/components/tour-card';
+import { WhatsappIcon } from '../shared/components/whatsapp-icon';
+import { whatsappUrl } from '../shared/whatsapp';
 
 const heroImage =
   'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=2200&q=80';
@@ -22,7 +24,7 @@ const heroImage =
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [NgForOf, ReactiveFormsModule, DestinationCard, TourCard, TestimonialCard, SectionTitle, RouterLink],
+  imports: [NgForOf, ReactiveFormsModule, DestinationCard, TourCard, TestimonialCard, SectionTitle, RouterLink, WhatsappIcon],
   template: `
     <section class="hero section-shell">
       <img class="hero-image" [src]="heroImage" alt="Albanian Riviera coastline" />
@@ -52,6 +54,10 @@ const heroImage =
             Search routes
           </button>
         </form>
+        <a class="button-whatsapp hero-whatsapp" [href]="heroWhatsAppUrl" target="_blank" rel="noopener">
+          <app-whatsapp-icon />
+          Plan on WhatsApp
+        </a>
       </div>
     </section>
 
@@ -93,7 +99,10 @@ const heroImage =
         <h2>Your South Albania plan starts here.</h2>
         <p>Choose a package and send your details directly to Explora on WhatsApp.</p>
         <div class="cta-actions">
-          <a class="button-primary" routerLink="/booking">Plan on WhatsApp</a>
+          <a class="button-whatsapp" [href]="generalWhatsAppUrl" target="_blank" rel="noopener">
+            <app-whatsapp-icon />
+            Plan on WhatsApp
+          </a>
           <a class="button-ghost" routerLink="/destinations">Explore destinations</a>
         </div>
       </div>
@@ -110,6 +119,7 @@ export class HomePage {
   featuredTours = tours.slice(0, 3);
   testimonials = promotionalTestimonials;
   travellerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12];
+  generalWhatsAppUrl = whatsappUrl('Hi! I would like to plan a South Albania trip with Explora.');
 
   constructor() {
     const tomorrow = new Date();
@@ -134,5 +144,16 @@ export class HomePage {
         travellers: value.travellers,
       },
     });
+  }
+
+  get heroWhatsAppUrl(): string {
+    const value = this.searchForm.value;
+    return whatsappUrl([
+      'Hi! I would like to plan a South Albania trip with Explora.',
+      '',
+      `Destination: ${value.destination || 'Albanian Riviera'}`,
+      `Travel date: ${value.startDate || 'Flexible'}`,
+      `Guests: ${value.travellers || '2'}`,
+    ].join('\n'));
   }
 }
