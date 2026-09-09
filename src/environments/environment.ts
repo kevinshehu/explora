@@ -1,4 +1,4 @@
 export const environment = {
-  baseUrl: 'https://api.eternal-holidays.net',
+  baseUrl: 'https://api.explora.app',
   providers: [],
 };

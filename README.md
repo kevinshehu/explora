@@ -1,21 +1,63 @@
 # Explora
 
-Explora is an Angular travel-agency demo application, migrated as the initial foundation for your new repository.
+Explora is a premium, modern Angular travel-agency web experience built around curated destinations, tour discovery, and a complete booking flow.
+
+## Tech stack
+
+- Angular 21 (standalone APIs)
+- TypeScript
+- Tailwind CSS directives integrated into Angular styles
+- Strict TypeScript + strict Angular templates
+
+## Features
+
+- Modern home page with search and destination discovery
+- Destination listing with search, categories, filters, and sorting
+- Destination detail pages with galleries, highlights, and related tours
+- Tour listing with filters, sorting, and package cards
+- Tour detail pages with itinerary, pricing, includes, and exclusions
+- Booking flow with traveler selection, date capture, and confirmation state
+- Responsive layout and reusable component structure
+
+## Available scripts
+
+- `pnpm install` installs dependencies
+- `pnpm start` starts the development server
+- `pnpm run build` builds the production bundle
+
+## Development scripts
+
+- `pnpm run test` runs frontend tests
+- `pnpm run lint` runs ESLint
+- `pnpm run verify` runs tests and lint
 
 ## Getting started
 
-- Install dependencies: `pnpm install`
-- Start development server: `pnpm start`
-- Production build: `pnpm run build`
+1. Install dependencies
 
-## Requirements
+```bash
+pnpm install
+```
 
-- Node.js 20+
-- pnpm
+2. Start local development
 
-## Project scripts
+```bash
+pnpm start
+```
 
-- `pnpm start` – Angular dev server
-- `pnpm run build` – production build
-- `pnpm run test` – run unit tests
-- `pnpm run storybook` – start Storybook
+3. Build for production
+
+```bash
+pnpm run build
+```
+
+## Production check
+
+Before publishing, verify these routes:
+
+- `/`
+- `/destinations`
+- `/destinations/:slug`
+- `/tours`
+- `/tours/:slug`
+- `/booking`

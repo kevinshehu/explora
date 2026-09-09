@@ -18,8 +18,8 @@ export class KeycloakService {
     if (!this.#keycloak) {
       console.log('initialize keycloak');
       this.#keycloak = new Keycloak({
-        url: 'https://auth.eternal-holidays.net:8443/',
-        realm: 'eternal',
+        url: 'https://auth.explora.app:8443/',
+        realm: 'explora',
         clientId: 'frontend',
       });
     }
