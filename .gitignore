@@ -57,3 +57,6 @@ session.json
 
 *storybook.log
 .env
+
+# Supabase CLI temp
+supabase/.temp/
