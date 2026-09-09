@@ -7,46 +7,70 @@ import {
 import { Component, inject } from '@angular/core';
 import { destinations } from '../data/travel-data';
 import { DestinationCard } from '../shared/components/destination-card';
-import { SectionTitle } from '../shared/components/section-title';
 
 @Component({
   selector: 'app-destinations-page',
   standalone: true,
-  imports: [ReactiveFormsModule, DestinationCard, SectionTitle],
+  imports: [ReactiveFormsModule, DestinationCard],
   template: `
-    <section class="container section-shell page-with-rail">
-      <app-section-title
-        label="Destinations"
-        title="Discover Southern Albania"
-        description="Search by destination, category, experiences, and price to find a great-fit package with local depth."
-      />
-      <form class="filters" [formGroup]="filterForm">
-        <input type="text" formControlName="query" placeholder="Search destination" />
-        <select formControlName="category">
-          <option value="all">All categories</option>
-          @for (category of categories; track category) {
-            <option [value]="category">{{ category }}</option>
-          }
-        </select>
-        <select formControlName="experienceCount">
-          <option value="all">Any experiences</option>
-          <option value="10">10+ experiences</option>
-          <option value="20">20+</option>
-          <option value="30">30+</option>
-        </select>
-        <input type="number" formControlName="maxPrice" min="70" step="20" placeholder="Max EUR" />
-        <select formControlName="sort">
-          <option value="featured">Featured</option>
-          <option value="priceLow">Price: low to high</option>
-          <option value="priceHigh">Price: high to low</option>
-          <option value="rating">Top rated</option>
-        </select>
+    <section class="destination-page-hero">
+      <div class="destination-page-hero-image" aria-hidden="true"></div>
+      <div class="container destination-page-hero-inner">
+        <div class="destination-page-copy">
+          <p class="eyebrow">Explore Southern Albania</p>
+          <h1>Find a stay that feels like your kind of beach day.</h1>
+          <p>
+            Browse beach villas, coastal escapes, and curated stays designed for relaxed luxury and easy planning.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-shell destination-page-shell">
+      <form class="luxury-filters" [formGroup]="filterForm">
+        <label>
+          <span>Search</span>
+          <input type="text" formControlName="query" placeholder="Destination or vibe" />
+        </label>
+        <label>
+          <span>Style</span>
+          <select formControlName="category">
+            <option value="all">All styles</option>
+            @for (category of categories; track category) {
+              <option [value]="category">{{ category }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          <span>Experiences</span>
+          <select formControlName="experienceCount">
+            <option value="all">Any</option>
+            <option value="10">10+ experiences</option>
+            <option value="20">20+</option>
+            <option value="30">30+</option>
+          </select>
+        </label>
+        <label>
+          <span>Max €</span>
+          <input type="number" formControlName="maxPrice" min="70" step="20" placeholder="2500" />
+        </label>
+        <label>
+          <span>Sort</span>
+          <select formControlName="sort">
+            <option value="featured">Featured</option>
+            <option value="priceLow">Price: low to high</option>
+            <option value="priceHigh">Price: high to low</option>
+            <option value="rating">Top rated</option>
+          </select>
+        </label>
       </form>
 
-      <div class="results-summary">Showing {{ filtered.length }} destinations in South Albania</div>
+      <div class="results-summary">
+        <span>Showing {{ filtered.length }} stays in South Albania</span>
+      </div>
 
       @if (filtered.length > 0) {
-        <div class="grid-3">
+        <div class="grid-3 luxury-grid">
           @for (item of filtered; track item.id) {
             <app-destination-card [destination]="item" />
           }
