@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -18,7 +17,7 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
 
 @Component({
   standalone: true,
-  imports: [DatePipe, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   template: `
     <section class="admin-page-stack">
       <div class="admin-page-header">
@@ -35,97 +34,35 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
 
       <article class="admin-card admin-panel-card">
         <div class="admin-toolbar-row">
-          <div class="admin-segmented-control">
-            @for (mode of viewModes; track mode) {
-              <button type="button" [class.is-active]="viewMode() === mode" (click)="viewMode.set(mode)">{{ mode }}</button>
-            }
-          </div>
           <strong>{{ calendarLabel() }}</strong>
         </div>
 
-        @if (viewMode() === 'month') {
-          <div class="admin-calendar-grid admin-calendar-grid--month">
-            @for (day of weekdayLabels; track day) {
-              <div class="admin-calendar-head">{{ day }}</div>
-            }
+        <div class="admin-calendar-grid admin-calendar-grid--month">
+          @for (day of weekdayLabels; track day) {
+            <div class="admin-calendar-head">{{ day }}</div>
+          }
 
-            @for (day of monthDays(); track day.toISOString()) {
-              <article class="admin-calendar-cell admin-calendar-cell--clickable" [class.is-muted]="!isCurrentMonth(day)" [class.is-today]="isToday(day)" (click)="openCreate(day)">
-                <header class="admin-calendar-cell-header">
-                  <strong>{{ day.getDate() }}</strong>
-                  @if (isToday(day)) {
-                    <span class="today-dot" aria-label="Today"></span>
-                  }
-                </header>
+          @for (day of monthDays(); track day.toISOString()) {
+            <article class="admin-calendar-cell admin-calendar-cell--clickable" [class.is-muted]="!isCurrentMonth(day)" [class.is-today]="isToday(day)" (click)="openCreate(day)">
+              <header class="admin-calendar-cell-header">
+                <strong>{{ day.getDate() }}</strong>
+                @if (isToday(day)) {
+                  <span class="today-dot" aria-label="Today"></span>
+                }
+              </header>
 
-                <div class="admin-calendar-events">
-                  @for (reservation of reservationsForDay(day); track reservation.id) {
-                    <button type="button" class="admin-calendar-event admin-calendar-event--{{ reservation.status }}" (click)="$event.stopPropagation(); openEdit(reservation)">
-                      <span>{{ reservation.place }}</span>
-                      <strong>{{ reservation.customerName }}</strong>
-                      <small>{{ reservation.tourName }} · {{ reservation.totalGuests }} guests</small>
-                    </button>
-                  }
-                </div>
-              </article>
-            }
-          </div>
-        } @else if (viewMode() === 'week') {
-          <div class="admin-calendar-stack">
-            @for (day of weekDays(); track day.toISOString()) {
-              <article class="admin-calendar-day-row admin-calendar-day-row--clickable" [class.is-today]="isToday(day)" (click)="openCreate(day)">
-                <header class="admin-calendar-day-header">
-                  <strong>{{ day | date:'EEE, MMM d' }}</strong>
-                  @if (isToday(day)) {
-                    <span class="today-dot" aria-label="Today"></span>
-                  }
-                </header>
-                <div class="admin-calendar-events admin-calendar-events--row">
-                  @for (reservation of reservationsForDay(day); track reservation.id) {
-                    <button type="button" class="admin-calendar-event admin-calendar-event--{{ reservation.status }}" (click)="$event.stopPropagation(); openEdit(reservation)">
-                      <strong>{{ reservation.customerName }}</strong>
-                      <small>{{ reservation.tourName }} · {{ dateRangeLabel(reservation) }}</small>
-                    </button>
-                  }
-                </div>
-              </article>
-            }
-          </div>
-        } @else if (viewMode() === 'day') {
-          <article class="admin-calendar-day-view">
-            <header class="admin-calendar-day-header">
-              <strong>{{ selectedDate() | date:'EEEE, MMMM d, yyyy' }}</strong>
-              @if (isToday(selectedDate())) {
-                <span class="today-dot" aria-label="Today"></span>
-              }
-              <button type="button" class="admin-button admin-button--secondary" (click)="openCreate(selectedDate())">Add reservation</button>
-            </header>
-
-            <div class="admin-calendar-events admin-calendar-events--list">
-              @for (reservation of reservationsForDay(selectedDate()); track reservation.id) {
-                <button type="button" class="admin-calendar-event admin-calendar-event--{{ reservation.status }}" (click)="openEdit(reservation)">
-                  <strong>{{ reservation.customerName }}</strong>
-                  <small>{{ reservation.tourName }} · {{ reservation.place }} · {{ reservation.totalGuests }} guests</small>
-                  <span>{{ dateRangeLabel(reservation) }}</span>
-                </button>
-              } @empty {
-                <p class="admin-empty-hint">No reservations for this day.</p>
-              }
-            </div>
-          </article>
-        } @else {
-          <div class="admin-list-stack">
-            @for (reservation of agendaReservations(); track reservation.id) {
-              <button type="button" class="admin-list-item" (click)="openEdit(reservation)">
-                <div>
-                  <strong>{{ reservation.customerName }}</strong>
-                  <p>{{ reservation.tourName }} · {{ reservation.place }}</p>
-                </div>
-                <span>{{ dateRangeLabel(reservation) }}</span>
-              </button>
-            }
-          </div>
-        }
+              <div class="admin-calendar-events">
+                @for (reservation of reservationsForDay(day); track reservation.id) {
+                  <button type="button" class="admin-calendar-event admin-calendar-event--{{ reservation.status }}" (click)="$event.stopPropagation(); openEdit(reservation)">
+                    <span>{{ reservation.place }}</span>
+                    <strong>{{ reservation.customerName }}</strong>
+                    <small>{{ reservation.tourName }} · {{ reservation.totalGuests }} guests</small>
+                  </button>
+                }
+              </div>
+            </article>
+          }
+        </div>
       </article>
     </section>
 
