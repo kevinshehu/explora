@@ -1,5 +1,5 @@
 [build]
-command = "npx ng build --configuration production"
+command = "pnpm run build --configuration production"
 publish = "dist/explora/browser"
 
 [[redirects]]
