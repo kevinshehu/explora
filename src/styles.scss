@@ -100,7 +100,7 @@ a {
   min-height: 74px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: var(--space-4);
 }
 
@@ -929,14 +929,8 @@ a.primary,
   }
 
   .topbar-grid {
-    justify-content: space-between;
+    justify-content: center;
     min-height: 68px;
-  }
-
-  .nav-cta {
-    display: inline-flex !important;
-    min-width: 116px;
-    padding-inline: 14px;
   }
 
   .hero {
