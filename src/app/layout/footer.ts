@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
       <div class="container footer-grid">
         <div>
           <h3>Explora</h3>
-          <p>Premium travel planning for modern explorers.</p>
+          <p>Premium travel planning for the Albanian Riviera and Southern Albania.</p>
         </div>
         <div>
           <h4>Explore</h4>
@@ -20,12 +20,12 @@ import { RouterLink } from '@angular/router';
         </div>
         <div>
           <h4>Support</h4>
-          <a href="#">Help center</a>
-          <a href="#">Contact</a>
-          <a href="#">Travel policy</a>
+          <a routerLink="/booking">Travel support</a>
+          <a href="mailto:hello@explora.al">Contact</a>
+          <a routerLink="/destinations">Riviera guide</a>
         </div>
       </div>
-      <p class="copyright">© 2026 Explora</p>
+      <p class="copyright">© 2026 Explora. Albanian Riviera travel experiences.</p>
     </footer>
   `,
 })

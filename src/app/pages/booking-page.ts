@@ -28,8 +28,8 @@ interface BookingSummary {
     <section class="container section-shell">
       <div class="detail-title-group">
         <p class="section-label">Booking</p>
-        <h1>Complete your journey</h1>
-        <p class="tagline">Build a clean travel booking with every essential step included.</p>
+        <h1>Build your South Albania itinerary</h1>
+        <p class="tagline">A clean booking flow with pricing, availability timing, and confirmation state.</p>
       </div>
 
       <div class="booking-grid">
@@ -37,9 +37,9 @@ interface BookingSummary {
           <label>
             <span>Destination or tour</span>
             <select formControlName="tourId">
-              <option value="">Select a destination or tour</option>
+              <option value="">Select a destination or package</option>
               <optgroup label="Tours">
-                <option *ngFor="let tour of tours" [value]="tour.slug">{{ tour.title }} — {{ tour.priceFrom | currency:'USD' }}</option>
+                <option *ngFor="let tour of tours" [value]="tour.slug">{{ tour.title }} — {{ tour.priceFrom | currency:'EUR' }}</option>
               </optgroup>
             </select>
           </label>
@@ -73,12 +73,12 @@ interface BookingSummary {
 
           <label>
             <span>Phone</span>
-            <input formControlName="phone" type="tel" placeholder="+1 555 123 4567" />
+            <input formControlName="phone" type="tel" placeholder="+355 6x xxx xxxx" />
           </label>
 
           <label>
             <span>Notes</span>
-            <textarea formControlName="notes" rows="4" placeholder="Preferred room type, accessibility notes"></textarea>
+            <textarea formControlName="notes" rows="4" placeholder="Preferred room type, access needs, and activity focus"></textarea>
           </label>
 
           <button class="button-primary" type="submit" [disabled]="bookingForm.invalid || submitted">Reserve now</button>
@@ -89,13 +89,13 @@ interface BookingSummary {
           <ng-container *ngIf="selectedTour as tour; else pickPrompt">
             <p><strong>Tour</strong> {{ tour.title }}</p>
             <p><strong>Duration</strong> {{ tour.duration }}</p>
-            <p><strong>Price</strong> {{ tour.priceFrom | currency:'USD' }} per person</p>
+            <p><strong>Price</strong> {{ tour.priceFrom | currency:'EUR' }} per person</p>
             <p><strong>Travellers</strong> {{ travellersCount }}</p>
             <p><strong>Check-in</strong> {{ bookingForm.value.startDate }}</p>
             <p><strong>Check-out</strong> {{ bookingForm.value.endDate }}</p>
             <p><strong>Nights</strong> {{ nights }}</p>
             <hr />
-            <p class="total">Total {{ quoteTotal | currency:'USD' }}</p>
+            <p class="total">Total {{ quoteTotal | currency:'EUR' }}</p>
           </ng-container>
           <ng-template #pickPrompt>
             <p>Select a tour to see the live pricing summary.</p>
@@ -110,8 +110,8 @@ interface BookingSummary {
         <p>Date: {{ confirmation.startDate }} → {{ confirmation.endDate }}</p>
         <p>Travellers: {{ confirmation.travellers }}</p>
         <p>Stay: {{ confirmation.nights }} nights</p>
-        <p>Total: {{ confirmation.total | currency:'USD' }} {{ confirmation.totalLabel }}</p>
-        <p>Your experience team will email {{ bookingForm.get('email')?.value }} shortly.</p>
+        <p>Total: {{ confirmation.total | currency:'EUR' }} {{ confirmation.totalLabel }}</p>
+        <p>Your travel team will email {{ bookingForm.get('email')?.value }} shortly.</p>
       </section>
     </section>
   `,
@@ -151,6 +151,11 @@ export class BookingPage {
     const selected = queryTour
       ? this.tours.find((tour) => tour.slug === queryTour)
       : undefined;
+
+    if (selected) {
+      this.selectedTour = selected;
+      this.bookingForm.patchValue({ tourId: selected.slug }, { emitEvent: false });
+    }
 
     if (queryDestination && !selected) {
       const destination = this.destinations.find(
@@ -244,7 +249,7 @@ export class BookingPage {
       travellers: Number(this.bookingForm.value.travellers ?? 1),
       nights: this.nights,
       total: this.quoteTotal,
-      totalLabel: 'USD',
+      totalLabel: 'EUR',
     };
 
     this.confirmed = true;

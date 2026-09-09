@@ -15,13 +15,13 @@ import { SectionTitle } from '../shared/components/section-title';
       <a class="back-link" routerLink="/destinations">← Back to destinations</a>
       <div class="detail-header">
         <div class="detail-title-group">
-          <p class="section-label">Destination</p>
+          <p class="section-label">Destination on the Albanian Riviera</p>
           <h1>{{ destination.city }}, {{ destination.country }}</h1>
           <p class="tagline">{{ destination.tagline }}</p>
         </div>
         <div class="detail-price">
           <p>From</p>
-          <p class="value">{{ destination.priceFrom | currency:'USD' }}</p>
+          <p class="value">{{ destination.priceFrom | currency:'EUR' }}</p>
           <p>{{ destination.rating }} ★ ({{ destination.reviews }} reviews)</p>
         </div>
       </div>
@@ -48,13 +48,13 @@ import { SectionTitle } from '../shared/components/section-title';
           <p><strong>Available experiences</strong> {{ destination.experiences }}</p>
           <p><strong>Best for</strong> {{ destination.tags.join(', ') }}</p>
           <a class="button-primary" [routerLink]="['/booking']" [queryParams]="{ destination: destination.slug }">Book destination</a>
-          <a class="button-ghost" [routerLink]="['/tours']" [queryParams]="{ destination: destination.city }">View packages</a>
+          <a class="button-ghost" [routerLink]="['/tours']" [queryParams]="{ destination: destination.city }">View package list</a>
         </aside>
       </div>
 
       <app-section-title
         title="Available tours"
-        description="Curated tours selected to match this destination's personality."
+        description="Packages selected to match this destination's character and best travel windows."
       />
       <div class="grid-3">
         <app-tour-card *ngFor="let tour of relatedTours" [tour]="tour" />

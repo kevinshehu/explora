@@ -22,10 +22,13 @@ import { Tour } from '../../shared/models/travel.model';
           <li *ngFor="let item of tour.highlights">{{ item }}</li>
         </ul>
         <div class="card-foot">
-          <p class="price">from {{ tour.priceFrom | currency:'USD' }}</p>
+          <p class="price">from {{ tour.priceFrom | currency:'EUR' }}</p>
           <p class="duration">{{ tour.duration }}</p>
         </div>
-        <a class="primary" [routerLink]="['/tours', tour.slug]">View itinerary</a>
+        <a class="primary card-link" [routerLink]="['/tours', tour.slug]">
+          View itinerary
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+        </a>
       </div>
     </article>
   `,

@@ -1,6 +1,6 @@
 # Explora
 
-Explora is a premium, modern Angular travel-agency web experience built around curated destinations, tour discovery, and a complete booking flow.
+Explora is a premium Angular travel platform focused on the Albanian Riviera and Southern Albania. It helps travelers discover coastal villages, hidden beaches, nature routes, curated tours, and a clean booking flow.
 
 ## Tech stack
 
@@ -11,8 +11,8 @@ Explora is a premium, modern Angular travel-agency web experience built around c
 
 ## Features
 
-- Modern home page with search and destination discovery
-- Destination listing with search, categories, filters, and sorting
+- Albanian Riviera home page with search and destination discovery
+- South Albania destination listing with search, categories, filters, and sorting
 - Destination detail pages with galleries, highlights, and related tours
 - Tour listing with filters, sorting, and package cards
 - Tour detail pages with itinerary, pricing, includes, and exclusions

@@ -18,22 +18,22 @@ import { SectionTitle } from '../shared/components/section-title';
     <section class="container section-shell page-with-rail">
       <app-section-title
         label="Destinations"
-        title="Find your next premium destination"
-        description="Use category and budget filters to discover places crafted for meaningful stays."
+        title="Discover Southern Albania"
+        description="Search by destination, category, experiences, and price to find a great-fit package with local depth."
       />
       <form class="filters" [formGroup]="filterForm">
         <input type="text" formControlName="query" placeholder="Search destination" />
-        <select formControlName="category" [disabled]="categories.length === 0">
+        <select formControlName="category">
           <option value="all">All categories</option>
           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         </select>
         <select formControlName="experienceCount">
           <option value="all">Any experiences</option>
+          <option value="10">10+ experiences</option>
           <option value="20">20+</option>
           <option value="30">30+</option>
-          <option value="40">40+</option>
         </select>
-        <input type="number" formControlName="maxPrice" min="500" step="100" />
+        <input type="number" formControlName="maxPrice" min="70" step="20" placeholder="Max EUR" />
         <select formControlName="sort">
           <option value="featured">Featured</option>
           <option value="priceLow">Price: low to high</option>
@@ -42,7 +42,7 @@ import { SectionTitle } from '../shared/components/section-title';
         </select>
       </form>
 
-      <div class="results-summary">Showing {{ filtered.length }} destinations</div>
+      <div class="results-summary">Showing {{ filtered.length }} destinations in South Albania</div>
 
       <ng-container *ngIf="filtered.length > 0; else emptyState">
         <div class="grid-3">
@@ -50,7 +50,7 @@ import { SectionTitle } from '../shared/components/section-title';
         </div>
       </ng-container>
       <ng-template #emptyState>
-        <p class="empty-state">No destinations match your current filters. Try a broader category.</p>
+        <p class="empty-state">No destinations match your current filters. Try a broader search.</p>
       </ng-template>
     </section>
   `,

@@ -19,8 +19,8 @@ import { Tour } from '../shared/models/travel.model';
     <section class="container section-shell">
       <app-section-title
         label="Tours"
-        title="Modern tour packages"
-        description="Curated packages with clear duration, budget, and rating signals."
+        title="Albanian Riviera packages"
+        description="Filter by destination, category, and duration to find the right premium itinerary."
       />
       <form class="filters" [formGroup]="filterForm">
         <input type="text" formControlName="query" placeholder="Search tours" />
@@ -30,12 +30,7 @@ import { Tour } from '../shared/models/travel.model';
         </select>
         <select formControlName="category">
           <option value="all">All themes</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Luxury">Luxury</option>
-          <option value="Wellness">Wellness</option>
-          <option value="Culture">Culture</option>
-          <option value="Scenic">Scenic</option>
-          <option value="Premium Nature">Premium Nature</option>
+          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         </select>
         <select formControlName="sort">
           <option value="featured">Featured</option>
@@ -46,7 +41,7 @@ import { Tour } from '../shared/models/travel.model';
         </select>
       </form>
 
-      <div class="results-summary">Showing {{ filteredTours.length }} tours</div>
+      <div class="results-summary">Showing {{ filteredTours.length }} tours across the Riviera</div>
 
       <ng-container *ngIf="filteredTours.length > 0; else emptyState">
         <div class="grid-3">
@@ -65,6 +60,7 @@ export class ToursPage {
   private readonly router = inject(Router);
 
   destinationOptions = destinations.map((destination) => destination.city);
+  categories = [...new Set(tours.map((tour) => tour.category))].sort();
 
   tours = tours;
   filteredTours: Tour[] = [];

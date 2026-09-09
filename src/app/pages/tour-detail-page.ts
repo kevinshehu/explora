@@ -19,7 +19,7 @@ import { Tour } from '../shared/models/travel.model';
         </div>
         <div class="detail-price">
           <p>From</p>
-          <p class="value">{{ tour.priceFrom | currency:'USD' }}</p>
+          <p class="value">{{ tour.priceFrom | currency:'EUR' }}</p>
           <p>{{ tour.duration }} · {{ tour.rating }} ★</p>
         </div>
       </div>
