@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgForOf, NgIf } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { destinations, tours } from '../data/travel-data';
@@ -7,13 +7,15 @@ import { TourCard } from '../shared/components/tour-card';
 import { SectionTitle } from '../shared/components/section-title';
 import { WhatsappIcon } from '../shared/components/whatsapp-icon';
 import { whatsappUrl } from '../shared/whatsapp';
+import { PriceCalculator } from '../shared/components/price-calculator';
 
 @Component({
   selector: 'app-destination-detail-page',
   standalone: true,
-  imports: [NgIf, NgForOf, CurrencyPipe, RouterLink, TourCard, SectionTitle, WhatsappIcon],
+  imports: [CurrencyPipe, RouterLink, TourCard, SectionTitle, WhatsappIcon, PriceCalculator],
   template: `
-    <section *ngIf="destination" class="container section-shell">
+    @if (destination) {
+    <section class="container section-shell">
       <a class="back-link" routerLink="/destinations">← Back to destinations</a>
       <div class="detail-header">
         <div class="detail-title-group">
@@ -30,19 +32,25 @@ import { whatsappUrl } from '../shared/whatsapp';
 
       <div class="gallery-grid">
         <img [src]="destination.image" [alt]="destination.city" class="gallery-main" />
-        <img *ngFor="let image of destination.gallery" [src]="image" [alt]="destination.city" class="gallery-thumb" />
+        @for (image of destination.gallery; track image) {
+          <img [src]="image" [alt]="destination.city" class="gallery-thumb" />
+        }
       </div>
 
       <div class="two-col">
         <div>
-        <app-section-title title="Overview" [description]="destination.longDescription" />
+          <app-section-title title="Overview" [description]="destination.longDescription" />
           <h3>Highlights</h3>
           <ul class="feature-bullets">
-            <li *ngFor="let item of destination.highlights">{{ item }}</li>
+            @for (item of destination.highlights; track item) {
+              <li>{{ item }}</li>
+            }
           </ul>
           <h3>Popular activities</h3>
           <div class="chip-row">
-            <span *ngFor="let activity of destination.activities">{{ activity }}</span>
+            @for (activity of destination.activities; track activity) {
+              <span>{{ activity }}</span>
+            }
           </div>
         </div>
         <aside class="info-card">
@@ -53,24 +61,39 @@ import { whatsappUrl } from '../shared/whatsapp';
             <app-whatsapp-icon />
             Ask on WhatsApp
           </a>
-          <a class="button-primary" [routerLink]="['/booking']" [queryParams]="{ destination: destination.slug }">Plan details</a>
+          <a class="button-primary" href="#destination-calculator">Calculate price</a>
           <a class="button-ghost" [routerLink]="['/tours']" [queryParams]="{ destination: destination.city }">View package list</a>
         </aside>
       </div>
+
+      @if (relatedTours[0]; as primaryTour) {
+      <section id="destination-calculator" class="section-shell">
+        <app-section-title
+          label="Price calculator"
+          title="Estimate a {{ destination.city }} experience"
+          description="Choose people, package level, and duration before opening WhatsApp."
+        />
+        <app-price-calculator [tour]="primaryTour" [showDate]="true" />
+      </section>
+      }
 
       <app-section-title
         title="Available tours"
         description="Packages selected to match this destination's character and best travel windows."
       />
       <div class="grid-3">
-        <app-tour-card *ngFor="let tour of relatedTours" [tour]="tour" />
+        @for (tour of relatedTours; track tour.id) {
+          <app-tour-card [tour]="tour" />
+        }
       </div>
     </section>
+    } @else {
 
-    <section *ngIf="!destination" class="container section-shell">
+    <section class="container section-shell">
       <p class="empty-state">Destination not found.</p>
       <a class="button-primary" routerLink="/destinations">Explore destinations</a>
     </section>
+    }
   `,
 })
 export class DestinationDetailPage {
@@ -78,7 +101,7 @@ export class DestinationDetailPage {
   private readonly router = inject(Router);
 
   destination: Destination | undefined = undefined;
-  relatedTours = tours.filter((tour) => false);
+  relatedTours = tours.slice(0, 0);
   destinationWhatsAppUrl = whatsappUrl();
 
   constructor() {

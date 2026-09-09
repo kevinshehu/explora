@@ -1,17 +1,20 @@
-import { CurrencyPipe, NgForOf, NgIf } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { tours } from '../data/travel-data';
 import { Tour } from '../shared/models/travel.model';
+import { SectionTitle } from '../shared/components/section-title';
 import { WhatsappIcon } from '../shared/components/whatsapp-icon';
 import { whatsappUrl } from '../shared/whatsapp';
+import { PriceCalculator } from '../shared/components/price-calculator';
 
 @Component({
   selector: 'app-tour-detail-page',
   standalone: true,
-  imports: [NgIf, NgForOf, CurrencyPipe, RouterLink, WhatsappIcon],
+  imports: [CurrencyPipe, RouterLink, SectionTitle, WhatsappIcon, PriceCalculator],
   template: `
-    <section *ngIf="tour" class="container section-shell">
+    @if (tour) {
+    <section class="container section-shell">
       <a class="back-link" routerLink="/tours">← Back to tours</a>
       <div class="detail-header">
         <div class="detail-title-group">
@@ -28,7 +31,9 @@ import { whatsappUrl } from '../shared/whatsapp';
 
       <div class="gallery-grid">
         <img [src]="tour.image" [alt]="tour.title" class="gallery-main" />
-        <img *ngFor="let image of tour.gallery" [src]="image" [alt]="tour.title" class="gallery-thumb" />
+        @for (image of tour.gallery; track image) {
+          <img [src]="image" [alt]="tour.title" class="gallery-thumb" />
+        }
       </div>
 
       <div class="two-col">
@@ -38,22 +43,30 @@ import { whatsappUrl } from '../shared/whatsapp';
 
           <h3>Highlights</h3>
           <ul class="feature-bullets">
-            <li *ngFor="let item of tour.highlights">{{ item }}</li>
+            @for (item of tour.highlights; track item) {
+              <li>{{ item }}</li>
+            }
           </ul>
 
           <h3>Itinerary</h3>
           <ol class="itinerary-list">
-            <li *ngFor="let item of tour.itinerary">{{ item }}</li>
+            @for (item of tour.itinerary; track item) {
+              <li>{{ item }}</li>
+            }
           </ol>
 
           <h3>Included</h3>
           <ul class="feature-bullets">
-            <li *ngFor="let item of tour.included">{{ item }}</li>
+            @for (item of tour.included; track item) {
+              <li>{{ item }}</li>
+            }
           </ul>
 
           <h3>Not included</h3>
           <ul class="feature-bullets muted-list">
-            <li *ngFor="let item of tour.excluded">{{ item }}</li>
+            @for (item of tour.excluded; track item) {
+              <li>{{ item }}</li>
+            }
           </ul>
         </div>
 
@@ -65,15 +78,26 @@ import { whatsappUrl } from '../shared/whatsapp';
             <app-whatsapp-icon />
             Ask on WhatsApp
           </a>
-          <a class="button-primary" [routerLink]="['/booking']" [queryParams]="{ tour: tour.slug }">Plan details</a>
+          <a class="button-primary" href="#tour-calculator">Calculate price</a>
         </aside>
       </div>
-    </section>
 
-    <section *ngIf="!tour" class="container section-shell">
+      <section id="tour-calculator" class="section-shell">
+        <app-section-title
+          label="Price calculator"
+          title="Calculate before you book"
+          description="Select your group size, package option, duration, and optional date before opening WhatsApp."
+        />
+        <app-price-calculator [tour]="tour" [showDate]="true" />
+      </section>
+    </section>
+    } @else {
+
+    <section class="container section-shell">
       <p class="empty-state">Tour not found.</p>
       <a class="button-primary" routerLink="/tours">Browse tours</a>
     </section>
+    }
   `,
 })
 export class TourDetailPage {

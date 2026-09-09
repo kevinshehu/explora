@@ -1,4 +1,3 @@
-import { NgForOf, NgIf } from '@angular/common';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -14,7 +13,7 @@ import { Tour } from '../shared/models/travel.model';
 @Component({
   selector: 'app-tours-page',
   standalone: true,
-  imports: [NgForOf, NgIf, ReactiveFormsModule, TourCard, SectionTitle],
+  imports: [ReactiveFormsModule, TourCard, SectionTitle],
   template: `
     <section class="container section-shell">
       <app-section-title
@@ -26,11 +25,15 @@ import { Tour } from '../shared/models/travel.model';
         <input type="text" formControlName="query" placeholder="Search tours" />
         <select formControlName="destination">
           <option value="all">All destinations</option>
-          <option *ngFor="let destination of destinationOptions" [value]="destination">{{ destination }}</option>
+          @for (destination of destinationOptions; track destination) {
+            <option [value]="destination">{{ destination }}</option>
+          }
         </select>
         <select formControlName="category">
           <option value="all">All themes</option>
-          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          @for (category of categories; track category) {
+            <option [value]="category">{{ category }}</option>
+          }
         </select>
         <select formControlName="sort">
           <option value="featured">Featured</option>
@@ -43,14 +46,15 @@ import { Tour } from '../shared/models/travel.model';
 
       <div class="results-summary">Showing {{ filteredTours.length }} tours across the Riviera</div>
 
-      <ng-container *ngIf="filteredTours.length > 0; else emptyState">
+      @if (filteredTours.length > 0) {
         <div class="grid-3">
-          <app-tour-card *ngFor="let tour of filteredTours" [tour]="tour" />
+          @for (tour of filteredTours; track tour.id) {
+            <app-tour-card [tour]="tour" />
+          }
         </div>
-      </ng-container>
-      <ng-template #emptyState>
+      } @else {
         <p class="empty-state">No tours match your search. Adjust filters and try again.</p>
-      </ng-template>
+      }
     </section>
   `,
 })
@@ -76,12 +80,14 @@ export class ToursPage {
     this.applyFilters();
     this.filterForm.valueChanges.subscribe(() => this.applyFilters());
     this.route.queryParamMap.subscribe((params) => {
-      const query = params.get('destination') ?? '';
+      const query = params.get('query') ?? '';
+      const destination = params.get('destination') ?? 'all';
       const sort = params.get('sort') ?? 'featured';
       const category = params.get('category') ?? 'all';
       this.filterForm.patchValue(
         {
           query,
+          destination,
           category,
           sort,
         },

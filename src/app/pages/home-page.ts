@@ -1,11 +1,5 @@
-import { NgForOf } from '@angular/common';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   destinations,
   promotionalTestimonials,
@@ -16,6 +10,7 @@ import { SectionTitle } from '../shared/components/section-title';
 import { TestimonialCard } from '../shared/components/testimonial-card';
 import { TourCard } from '../shared/components/tour-card';
 import { WhatsappIcon } from '../shared/components/whatsapp-icon';
+import { PriceCalculator } from '../shared/components/price-calculator';
 import { whatsappUrl } from '../shared/whatsapp';
 
 const heroImage =
@@ -24,7 +19,7 @@ const heroImage =
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [NgForOf, ReactiveFormsModule, DestinationCard, TourCard, TestimonialCard, SectionTitle, RouterLink, WhatsappIcon],
+  imports: [DestinationCard, TourCard, TestimonialCard, SectionTitle, RouterLink, WhatsappIcon, PriceCalculator],
   template: `
     <section class="hero section-shell">
       <img class="hero-image" [src]="heroImage" alt="Albanian Riviera coastline" />
@@ -34,30 +29,19 @@ const heroImage =
         <p>
           Crystal-clear waters, hidden beaches, coastal villages, and signature experiences across Southern Albania.
         </p>
-        <form class="search-strip" [formGroup]="searchForm" (ngSubmit)="search()">
-          <label>
-            <span>Destination</span>
-            <input type="text" formControlName="destination" placeholder="e.g. Sarandë, Vlorë, Gjipe" />
-          </label>
-          <label>
-            <span>Travel date</span>
-            <input type="date" formControlName="startDate" />
-          </label>
-          <label>
-            <span>Guests</span>
-            <select formControlName="travellers">
-              <option *ngFor="let count of travellerOptions" [value]="count">{{ count }} guest{{ count > 1 ? 's' : '' }}</option>
-            </select>
-          </label>
-          <button class="button-primary" type="submit">
-            <span class="material-symbols-outlined" aria-hidden="true">search</span>
-            Search routes
-          </button>
-        </form>
-        <a class="button-whatsapp hero-whatsapp" [href]="heroWhatsAppUrl" target="_blank" rel="noopener">
-          <app-whatsapp-icon />
-          Plan on WhatsApp
-        </a>
+        <div class="hero-actions">
+          <a class="button-primary" routerLink="/destinations">Explore destinations</a>
+          <a class="button-whatsapp hero-whatsapp" [href]="heroWhatsAppUrl" target="_blank" rel="noopener">
+            <app-whatsapp-icon />
+            Ask Explora
+          </a>
+        </div>
+        <div class="discovery-steps" aria-label="Explora travel flow">
+          <span>Discover</span>
+          <span>Choose</span>
+          <span>Calculate price</span>
+          <span>Book via WhatsApp</span>
+        </div>
       </div>
     </section>
 
@@ -68,7 +52,44 @@ const heroImage =
         description="From Dhërmi to Vlorë, every route is crafted around beach time, village culture, and premium comfort."
       />
       <div class="riviera-grid">
-        <app-destination-card *ngFor="let destination of rivieraDestinations" [destination]="destination" />
+        @for (destination of rivieraDestinations; track destination.id) {
+          <app-destination-card [destination]="destination" />
+        }
+      </div>
+    </section>
+
+    <section class="container section-shell">
+      <app-section-title
+        label="Price calculators"
+        title="Know your estimate before WhatsApp"
+        description="Choose people, package level, and trip length. Explora handles availability and final details with you on WhatsApp."
+      />
+      <div class="calculator-grid">
+        @for (tour of calculatorTours; track tour.id) {
+          <app-price-calculator [tour]="tour" [showDate]="false" />
+        }
+      </div>
+    </section>
+
+    <section class="container section-shell">
+      <app-section-title
+        label="Why Explora"
+        title="Focused on South Albania"
+        description="Simple pricing, local route planning, and fast WhatsApp support for travelers who want clear next steps."
+      />
+      <div class="feature-grid">
+        <article>
+          <h3>Curated coastal routes</h3>
+          <p>Each experience is built around real Riviera highlights, not generic travel lists.</p>
+        </article>
+        <article>
+          <h3>Clear estimates</h3>
+          <p>See the price before starting the booking conversation.</p>
+        </article>
+        <article>
+          <h3>WhatsApp-first booking</h3>
+          <p>Ask questions, confirm availability, and finalize details directly with Explora.</p>
+        </article>
       </div>
     </section>
 
@@ -79,7 +100,9 @@ const heroImage =
         description="Focused itineraries with private transfers, coastal stops, local guides, and clear pricing."
       />
       <div class="grid-3">
-        <app-tour-card *ngFor="let tour of featuredTours" [tour]="tour" />
+        @for (tour of featuredTours; track tour.id) {
+          <app-tour-card [tour]="tour" />
+        }
       </div>
     </section>
 
@@ -90,7 +113,9 @@ const heroImage =
         description="Experiences shared by people discovering the Albanian South Riviera."
       />
       <div class="testimonial-grid">
-        <app-testimonial-card *ngFor="let testimonial of testimonials" [testimonial]="testimonial" />
+        @for (testimonial of testimonials; track testimonial.name) {
+          <app-testimonial-card [testimonial]="testimonial" />
+        }
       </div>
     </section>
 
@@ -110,50 +135,11 @@ const heroImage =
   `,
 })
 export class HomePage {
-  private readonly fb = inject(FormBuilder);
-  private readonly router = inject(Router);
-
-  searchForm: ReturnType<typeof this.fb.group>;
   heroImage = heroImage;
   rivieraDestinations = destinations.slice(0, 8);
   featuredTours = tours.slice(0, 3);
+  calculatorTours = tours.slice(0, 2);
   testimonials = promotionalTestimonials;
-  travellerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12];
   generalWhatsAppUrl = whatsappUrl('Hi! I would like to plan a South Albania trip with Explora.');
-
-  constructor() {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    this.searchForm = this.fb.group({
-      destination: ['', Validators.required],
-      startDate: [tomorrow.toISOString().slice(0, 10)],
-      travellers: ['2', Validators.required],
-    });
-  }
-
-  search() {
-    if (this.searchForm.invalid) {
-      this.searchForm.markAllAsTouched();
-      return;
-    }
-    const value = this.searchForm.value;
-    this.router.navigate(['/tours'], {
-      queryParams: {
-        destination: value.destination,
-        startDate: value.startDate,
-        travellers: value.travellers,
-      },
-    });
-  }
-
-  get heroWhatsAppUrl(): string {
-    const value = this.searchForm.value;
-    return whatsappUrl([
-      'Hi! I would like to plan a South Albania trip with Explora.',
-      '',
-      `Destination: ${value.destination || 'Albanian Riviera'}`,
-      `Travel date: ${value.startDate || 'Flexible'}`,
-      `Guests: ${value.travellers || '2'}`,
-    ].join('\n'));
-  }
+  heroWhatsAppUrl = whatsappUrl('Hi! I would like to discover the Albanian Riviera with Explora. Can you help me choose the right destination or experience?');
 }

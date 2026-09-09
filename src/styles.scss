@@ -345,6 +345,37 @@ a.button-ghost {
   align-self: flex-start;
 }
 
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.discovery-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  width: min(100%, 720px);
+  margin-top: var(--space-3);
+}
+
+.discovery-steps span {
+  min-height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  color: #f7fbfb;
+  font-weight: 800;
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 12px;
+}
+
 .whatsapp-icon {
   width: 18px;
   height: 18px;
@@ -544,6 +575,30 @@ a.primary,
   white-space: nowrap;
 }
 
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.card-link-secondary {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: #29454f;
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.card-link-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent-2);
+  background: var(--accent-soft);
+}
+
 .card-foot .duration {
   color: var(--muted);
   font-size: 0.85rem;
@@ -578,6 +633,133 @@ a.primary,
   padding: 20px;
   display: grid;
   gap: 8px;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.price-calculator {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: 0 12px 30px rgba(16, 33, 43, 0.07);
+  padding: clamp(18px, 3vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 100%;
+}
+
+.calculator-heading {
+  display: grid;
+  gap: 6px;
+}
+
+.calculator-heading h3 {
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  line-height: 1.25;
+}
+
+.calculator-heading p:not(.section-label) {
+  color: var(--muted);
+}
+
+.calculator-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.calculator-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.calculator-controls label span {
+  color: #29454f;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.calculator-controls input,
+.calculator-controls select,
+.calculator-controls textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  background: #fbfdfd;
+  color: var(--text);
+  outline: none;
+}
+
+.calculator-controls input:focus,
+.calculator-controls select:focus,
+.calculator-controls textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.13);
+}
+
+.calculator-notes {
+  grid-column: 1 / -1;
+}
+
+.calculator-notes textarea {
+  resize: vertical;
+}
+
+.calculator-summary {
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  padding: 16px;
+  display: grid;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.summary-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-price {
+  color: var(--accent-2);
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.summary-note {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.calculator-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.calculator-actions .button-ghost,
+.calculator-actions .button-whatsapp {
+  width: 100%;
+}
+
+.calculator-page-grid {
+  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 0.7fr);
 }
 
 .testimonial-grid {
@@ -924,8 +1106,9 @@ a.primary,
   .grid-3,
   .feature-grid,
   .testimonial-grid,
-    .gallery-grid,
-    .riviera-grid {
+  .calculator-grid,
+  .gallery-grid,
+  .riviera-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -937,7 +1120,7 @@ a.primary,
   .two-col,
   .booking-grid,
   .footer-grid,
-    .detail-header {
+  .detail-header {
     grid-template-columns: 1fr;
   }
 
@@ -984,6 +1167,10 @@ a.primary,
   .grid-3,
   .feature-grid,
   .testimonial-grid,
+  .calculator-grid,
+  .calculator-controls,
+  .calculator-actions,
+  .discovery-steps,
   .riviera-grid,
   .gallery-grid {
     grid-template-columns: 1fr;
@@ -993,7 +1180,7 @@ a.primary,
   .cta-row,
   .detail-price,
   .back-link,
-    .gallery-grid {
+  .gallery-grid {
     justify-content: stretch;
   }
 
@@ -1012,6 +1199,11 @@ a.primary,
     align-self: stretch;
   }
 
+  .hero-actions {
+    align-items: stretch;
+    width: 100%;
+  }
+
   .floating-whatsapp {
     right: 16px;
     bottom: 16px;
@@ -1027,6 +1219,10 @@ a.primary,
   .card-foot {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .card-actions {
+    grid-template-columns: 1fr;
   }
 
   .hero h1 {

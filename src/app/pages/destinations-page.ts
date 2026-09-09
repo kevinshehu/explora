@@ -1,4 +1,3 @@
-import { NgForOf, NgIf } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormBuilder,
@@ -13,7 +12,7 @@ import { SectionTitle } from '../shared/components/section-title';
 @Component({
   selector: 'app-destinations-page',
   standalone: true,
-  imports: [NgForOf, NgIf, ReactiveFormsModule, DestinationCard, SectionTitle],
+  imports: [ReactiveFormsModule, DestinationCard, SectionTitle],
   template: `
     <section class="container section-shell page-with-rail">
       <app-section-title
@@ -25,7 +24,9 @@ import { SectionTitle } from '../shared/components/section-title';
         <input type="text" formControlName="query" placeholder="Search destination" />
         <select formControlName="category">
           <option value="all">All categories</option>
-          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          @for (category of categories; track category) {
+            <option [value]="category">{{ category }}</option>
+          }
         </select>
         <select formControlName="experienceCount">
           <option value="all">Any experiences</option>
@@ -44,14 +45,15 @@ import { SectionTitle } from '../shared/components/section-title';
 
       <div class="results-summary">Showing {{ filtered.length }} destinations in South Albania</div>
 
-      <ng-container *ngIf="filtered.length > 0; else emptyState">
+      @if (filtered.length > 0) {
         <div class="grid-3">
-          <app-destination-card *ngFor="let item of filtered" [destination]="item" />
+          @for (item of filtered; track item.id) {
+            <app-destination-card [destination]="item" />
+          }
         </div>
-      </ng-container>
-      <ng-template #emptyState>
+      } @else {
         <p class="empty-state">No destinations match your current filters. Try a broader search.</p>
-      </ng-template>
+      }
     </section>
   `,
 })
