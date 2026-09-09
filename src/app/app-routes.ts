@@ -33,6 +33,18 @@ export const appRoutes: Routes = [
     loadComponent: () => import('./pages/booking-page').then((page) => page.BookingPage),
   },
   {
+    path: 'concierge',
+    loadComponent: () => import('./pages/concierge-page').then((page) => page.ConciergePage),
+  },
+  {
+    path: 'about',
+    loadComponent: () => import('./pages/about-page').then((page) => page.AboutPage),
+  },
+  {
+    path: 'contact',
+    loadComponent: () => import('./pages/contact-page').then((page) => page.ContactPage),
+  },
+  {
     path: 'admin',
     children: [
       { path: '', pathMatch: 'full', component: AdminLoginPage },

@@ -12,19 +12,20 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <span class="brand-mark">E</span>
           <span>
             <strong>Explora</strong>
-            <small>Albanian Riviera</small>
+            <small>South Albania</small>
           </span>
         </a>
 
         <nav class="desktop-nav" aria-label="Main navigation">
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-          <a routerLink="/destinations" routerLinkActive="active">Villas</a>
+          <a routerLink="/destinations" routerLinkActive="active">All Villas</a>
+          <a routerLink="/destinations" routerLinkActive="active">Destinations</a>
           <a routerLink="/tours" routerLinkActive="active">Experiences</a>
           <a routerLink="/booking" routerLinkActive="active">Booking</a>
-          <a routerLink="/destinations" routerLinkActive="active">About</a>
+          <a routerLink="/concierge" routerLinkActive="active">Concierge</a>
+          <a routerLink="/about" routerLinkActive="active">About us</a>
+          <a routerLink="/contact" routerLinkActive="active">Contact</a>
         </nav>
-
-        <a class="button-primary header-button" routerLink="/destinations">Find a villa</a>
       </div>
     </header>
   `,

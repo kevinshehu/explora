@@ -90,25 +90,25 @@ a {
 }
 
 .site-header {
-  background: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(16, 33, 43, 0.08);
   position: sticky;
   top: 0;
   z-index: 40;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
 }
 
 .topbar-grid {
   min-height: 72px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: 0.92rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -116,9 +116,9 @@ a {
 }
 
 .brand-mark {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 10px;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -135,7 +135,7 @@ a {
 
 .brand small {
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -144,29 +144,27 @@ a {
 .desktop-nav {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
   margin-left: auto;
 }
 
 .desktop-nav a {
   color: #2d4651;
   border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 0.82rem;
+  padding: 8px 11px;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+  text-transform: none;
   transition: all 160ms ease;
 }
 
 .desktop-nav a.active,
 .desktop-nav a:hover {
-  background: var(--accent-soft);
+  background: #f0f8f8;
   color: var(--accent-2);
-}
-
-.header-button {
-  margin-left: 4px;
 }
 
 .hero {
