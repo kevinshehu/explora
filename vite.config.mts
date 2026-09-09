@@ -7,6 +7,11 @@ import { playwright } from "@vitest/browser-playwright";
 
 export default defineConfig(({ mode }) => ({
   plugins: [angular(), viteTsConfigPaths()],
+  server: {
+    proxy: {
+      '/api': 'http://127.0.0.1:4300',
+    },
+  },
   test: {
     globals: true,
     setupFiles: ["src/test-setup.ts"],

@@ -9,11 +9,15 @@ import { whatsappUrl } from './shared/whatsapp';
   selector: 'app-root',
   template: `
     <div class="app-shell">
-      <app-header />
-      <main class="app-main">
+      @if (showPublicShell) {
+        <app-header />
+      }
+      <main class="app-main" [class.admin-main]="showAdminShell">
         <router-outlet />
       </main>
-      <app-footer />
+      @if (showPublicShell) {
+        <app-footer />
+      }
       @if (showFloatingWhatsApp) {
         <a class="floating-whatsapp" [href]="floatingWhatsAppUrl" target="_blank" rel="noopener" aria-label="Contact Explora on WhatsApp">
           <app-whatsapp-icon />
@@ -28,7 +32,15 @@ export class App {
 
   floatingWhatsAppUrl = whatsappUrl('Hi! I would like help planning a trip on the Albanian Riviera.');
 
+  get showAdminShell(): boolean {
+    return this.router.url.startsWith('/admin');
+  }
+
+  get showPublicShell(): boolean {
+    return !this.showAdminShell;
+  }
+
   get showFloatingWhatsApp(): boolean {
-    return !this.router.url.startsWith('/booking');
+    return this.showPublicShell && !this.router.url.startsWith('/booking');
   }
 }
