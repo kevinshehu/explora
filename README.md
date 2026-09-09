@@ -16,7 +16,7 @@ Explora is a premium Angular travel platform focused on the Albanian Riviera and
 - Destination detail pages with galleries, highlights, and related tours
 - Tour listing with filters, sorting, and package cards
 - Tour detail pages with itinerary, pricing, includes, and exclusions
-- Booking flow with traveler selection, date capture, and confirmation state
+- Booking flow with traveler selection, date capture, and WhatsApp message handoff
 - Responsive layout and reusable component structure
 
 ## Available scripts

@@ -8,7 +8,6 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
   destinations,
-  featuredDestinationIds,
   promotionalTestimonials,
   tours,
 } from '../data/travel-data';
@@ -39,12 +38,8 @@ const heroImage =
             <input type="text" formControlName="destination" placeholder="e.g. Sarandë, Vlorë, Gjipe" />
           </label>
           <label>
-            <span>Check in</span>
+            <span>Travel date</span>
             <input type="date" formControlName="startDate" />
-          </label>
-          <label>
-            <span>Check out</span>
-            <input type="date" formControlName="endDate" />
           </label>
           <label>
             <span>Guests</span>
@@ -78,67 +73,12 @@ const heroImage =
 
     <section class="container section-shell">
       <app-section-title
-        label="Featured destinations"
-        title="Most requested corners of Southern Albania"
-        description="These destinations are selected for balance across beach, nature, and heritage."
-      />
-      <div class="grid-3">
-        <app-destination-card *ngFor="let destination of featuredDestinations" [destination]="destination" />
-      </div>
-    </section>
-
-    <section class="container section-shell">
-      <div class="two-col">
-        <div>
-          <app-section-title
-            label="Popular destinations"
-            title="Hidden highlights and iconic bays"
-            description="We recommend by season, crowd profile, and your preferred travel mood."
-          />
-          <ul class="feature-list">
-            <li *ngFor="let destination of popularDestinations">{{ destination }}</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h3>Travel flow, ready in minutes</h3>
-          <p>
-            Compare tours, choose your duration, and open booking from this single workspace.
-          </p>
-          <a routerLink="/booking" class="button-primary">Open booking</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="container section-shell">
-      <app-section-title
-        label="Recommended tours"
-        title="Packages built for the Ionian coast"
-        description="Explore tours by premium comfort, local depth, and clear value signals."
+        label="Packages"
+        title="Clean routes for the Ionian coast"
+        description="Focused itineraries with private transfers, coastal stops, local guides, and clear pricing."
       />
       <div class="grid-3">
         <app-tour-card *ngFor="let tour of featuredTours" [tour]="tour" />
-      </div>
-    </section>
-
-    <section class="container section-shell">
-      <app-section-title
-        label="Why choose Explora"
-        title="Designed for unforgettable South Albania"
-        description="Every route includes aligned logistics, practical support, and practical local insights."
-      />
-      <div class="feature-grid">
-        <article>
-          <h3>Destination-first planning</h3>
-          <p>Trips are built around the place, not generic templates.</p>
-        </article>
-        <article>
-          <h3>Transparent pricing</h3>
-          <p>Clear fee structure with visible ratings and reviews before you confirm.</p>
-        </article>
-        <article>
-          <h3>Responsive travel UX</h3>
-          <p>Reliable controls, aligned cards, and no-friction booking from phone to desktop.</p>
-        </article>
       </div>
     </section>
 
@@ -156,10 +96,10 @@ const heroImage =
     <section class="container section-shell">
       <div class="cta-panel">
         <h2>Your South Albania plan starts here.</h2>
-        <p>Explore destinations or build a custom package for a smooth, premium coastal holiday.</p>
+        <p>Choose a package and send your details directly to Explora on WhatsApp.</p>
         <div class="cta-actions">
-          <a class="button-primary" routerLink="/destinations">Explore destinations</a>
-          <a class="button-ghost" routerLink="/tours">See all packages</a>
+          <a class="button-primary" routerLink="/booking">Plan on WhatsApp</a>
+          <a class="button-ghost" routerLink="/destinations">Explore destinations</a>
         </div>
       </div>
     </section>
@@ -171,35 +111,18 @@ export class HomePage {
 
   searchForm: ReturnType<typeof this.fb.group>;
   heroImage = heroImage;
-  featuredDestinations = destinations.filter((item) => featuredDestinationIds.includes(item.id));
   rivieraLead = destinations[0];
   rivieraGrid = destinations.slice(1, 8);
-  featuredTours = tours.slice(0, 4);
-  popularDestinations = [
-    'Dhërmi',
-    'Himarë',
-    'Ksamil',
-    'Sarandë',
-    'Jale Beach',
-    'Qeparo',
-    'Porto Palermo',
-    'Gjipe Beach',
-    'Llogara',
-    'Vlorë',
-    'The Blue Eye',
-  ];
+  featuredTours = tours.slice(0, 3);
   testimonials = promotionalTestimonials;
   travellerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12];
 
   constructor() {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const nextWeek = new Date();
-    nextWeek.setDate(nextWeek.getDate() + 8);
     this.searchForm = this.fb.group({
       destination: ['', Validators.required],
       startDate: [tomorrow.toISOString().slice(0, 10)],
-      endDate: [nextWeek.toISOString().slice(0, 10)],
       travellers: ['2', Validators.required],
     });
   }

@@ -670,15 +670,6 @@ export const tours: Tour[] = [
   },
 ];
 
-export const featuredDestinationIds = [
-  'dest-dhermi',
-  'dest-ksamil',
-  'dest-sarande',
-  'dest-llogara',
-  'dest-vlore',
-  'dest-porto-palermo',
-];
-
 export const promotionalTestimonials: Testimonial[] = [
   {
     name: 'Arianna S.',

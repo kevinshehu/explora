@@ -229,7 +229,7 @@ a {
 .search-strip {
   margin-top: var(--space-4);
   display: grid;
-  grid-template-columns: 1.35fr repeat(3, minmax(138px, 0.85fr)) minmax(170px, 0.95fr);
+  grid-template-columns: 1.45fr repeat(2, minmax(138px, 0.85fr)) minmax(170px, 0.95fr);
   gap: var(--space-3);
   align-items: end;
   width: min(100%, 1080px);
@@ -934,7 +934,9 @@ a.primary,
   }
 
   .nav-cta {
-    display: none !important;
+    display: inline-flex !important;
+    min-width: 116px;
+    padding-inline: 14px;
   }
 
   .hero {
@@ -973,6 +975,10 @@ a.primary,
   .button-primary,
   .search-strip button {
     width: 100%;
+  }
+
+  .site-header .button-primary {
+    width: auto;
   }
 
   .detail-price {

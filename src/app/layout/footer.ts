@@ -14,9 +14,9 @@ import { RouterLink } from '@angular/router';
         </div>
         <div>
           <h4>Explore</h4>
-          <a routerLink="/destinations">Destinations</a>
-          <a routerLink="/tours">Tours</a>
-          <a routerLink="/booking">Booking</a>
+          <a routerLink="/destinations">Riviera destinations</a>
+          <a routerLink="/tours">Packages</a>
+          <a routerLink="/booking">Plan by WhatsApp</a>
         </div>
         <div>
           <h4>Support</h4>

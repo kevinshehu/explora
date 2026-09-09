@@ -16,14 +16,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           </span>
         </a>
         <nav class="desktop-nav">
-          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-          <a routerLink="/destinations" routerLinkActive="active">Destinations</a>
-          <a routerLink="/tours" routerLinkActive="active">Tours</a>
-          <a routerLink="/booking" routerLinkActive="active">Booking</a>
+          <a routerLink="/destinations" routerLinkActive="active">Explore</a>
+          <a routerLink="/tours" routerLinkActive="active">Packages</a>
         </nav>
         <a class="button-primary nav-cta" routerLink="/booking">
           <span class="material-symbols-outlined" aria-hidden="true">travel_explore</span>
-          Plan your journey
+          <span>Plan trip</span>
         </a>
       </div>
     </header>
