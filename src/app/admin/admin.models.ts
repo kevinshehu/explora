@@ -6,7 +6,6 @@ export interface CustomerRecord {
   fullName: string;
   email: string;
   phone: string;
-  whatsapp: string;
   notes: string;
   createdAt: string;
   updatedAt: string;
@@ -69,6 +68,5 @@ export interface CustomerUpsertPayload {
   fullName: string;
   email: string;
   phone: string;
-  whatsapp: string;
   notes: string;
 }

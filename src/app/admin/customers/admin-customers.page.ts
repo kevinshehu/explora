@@ -59,10 +59,6 @@ import { CustomerRecord, ReservationRecord } from '../admin.models';
               <span>Phone</span>
               <input formControlName="phone" />
             </label>
-            <label>
-              <span>WhatsApp</span>
-              <input formControlName="whatsapp" />
-            </label>
             <label class="admin-form-span-2">
               <span>Notes</span>
               <textarea rows="3" formControlName="notes"></textarea>
@@ -117,7 +113,6 @@ export class AdminCustomersPage implements OnInit {
     fullName: [''],
     email: [''],
     phone: [''],
-    whatsapp: [''],
     notes: [''],
   });
 
@@ -128,7 +123,7 @@ export class AdminCustomersPage implements OnInit {
     }
 
     return this.customers().filter((customer) =>
-      [customer.fullName, customer.email, customer.phone, customer.whatsapp].some((value) =>
+      [customer.fullName, customer.email, customer.phone].some((value) =>
         value.toLowerCase().includes(query),
       ),
     );
@@ -169,7 +164,7 @@ export class AdminCustomersPage implements OnInit {
 
   startCreate(): void {
     this.editingCustomerId.set(null);
-    this.customerForm.reset({ fullName: '', email: '', phone: '', whatsapp: '', notes: '' });
+    this.customerForm.reset({ fullName: '', email: '', phone: '', notes: '' });
   }
 
   startEdit(customer: CustomerRecord): void {
@@ -178,7 +173,6 @@ export class AdminCustomersPage implements OnInit {
       fullName: customer.fullName,
       email: customer.email,
       phone: customer.phone,
-      whatsapp: customer.whatsapp,
       notes: customer.notes,
     });
   }

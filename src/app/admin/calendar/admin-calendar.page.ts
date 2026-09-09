@@ -444,7 +444,7 @@ export class AdminCalendarPage implements OnInit {
       customerName: customer.fullName,
       phone: customer.phone,
       email: customer.email,
-      whatsapp: customer.whatsapp,
+      whatsapp: customer.phone,
     });
   }
 
