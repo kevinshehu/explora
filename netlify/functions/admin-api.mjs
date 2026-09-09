@@ -21,7 +21,16 @@ function normalizePath(pathname) {
     return '/';
   }
 
-  const cleanPath = pathname.split('?')[0];
+  let rawValue = String(pathname).trim();
+
+  try {
+    const parsed = new URL(rawValue, 'https://example.com');
+    rawValue = parsed.pathname;
+  } catch {
+    rawValue = rawValue.split('?')[0];
+  }
+
+  const cleanPath = rawValue.split('?')[0];
   const prefixes = ['/api/admin', '/.netlify/functions/admin-api'];
 
   for (const prefix of prefixes) {
