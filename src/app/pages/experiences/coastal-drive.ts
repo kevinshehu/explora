@@ -11,10 +11,23 @@ import { whatsappUrl } from '../../shared/whatsapp';
     <section class="dr-scene" appScene aria-label="Private driver">
       <div class="dr-stage">
         <div class="dr-sky" aria-hidden="true"></div>
+        <div class="dr-sun" aria-hidden="true"></div>
         <div class="dr-mountains dr-far" aria-hidden="true"></div>
-        <div class="dr-mountains dr-near" aria-hidden="true"></div>
+        <div class="dr-mountains dr-mid" aria-hidden="true"></div>
         <div class="dr-sea" aria-hidden="true"></div>
+        <div class="dr-mountains dr-near" aria-hidden="true"></div>
+
+        <div class="dr-scenery" aria-hidden="true">
+          <span class="dr-cypress" style="left: 8%"></span>
+          <span class="dr-cypress short" style="left: 15%"></span>
+          <span class="dr-bush" style="left: 24%"></span>
+          <span class="dr-cypress" style="left: 70%"></span>
+          <span class="dr-bush" style="left: 82%"></span>
+          <span class="dr-cypress short" style="left: 92%"></span>
+        </div>
+
         <div class="dr-road" aria-hidden="true">
+          <div class="dr-road-sheen"></div>
           <div class="dr-lane"></div>
         </div>
 
@@ -24,23 +37,66 @@ import { whatsappUrl } from '../../shared/whatsapp';
         </div>
 
         <div class="dr-car" aria-hidden="true">
-          <svg viewBox="0 0 420 150" role="img" aria-label="Luxury car">
+          <div class="dr-car-shadow"></div>
+          <svg viewBox="0 0 460 170" role="img" aria-label="Luxury chauffeur car">
             <defs>
-              <linearGradient id="carBody" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#20303f" />
-                <stop offset="1" stop-color="#0c151d" />
+              <linearGradient id="carPaint" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#3a4b5c" />
+                <stop offset="0.4" stop-color="#1c2a36" />
+                <stop offset="1" stop-color="#0a121a" />
               </linearGradient>
+              <linearGradient id="carSheen" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="rgba(255,255,255,0)" />
+                <stop offset="0.5" stop-color="rgba(255,255,255,0.35)" />
+                <stop offset="1" stop-color="rgba(255,255,255,0)" />
+              </linearGradient>
+              <linearGradient id="carGlass" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#cfe6f2" />
+                <stop offset="1" stop-color="#4b6577" />
+              </linearGradient>
+              <radialGradient id="rim" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0" stop-color="#e9eef2" />
+                <stop offset="0.6" stop-color="#9aa8b4" />
+                <stop offset="1" stop-color="#41505c" />
+              </radialGradient>
             </defs>
+
             <path
               class="dr-body"
-              d="M20 104 L58 104 Q78 66 128 62 L250 58 Q320 58 356 92 L396 100 Q404 102 404 112 L404 118 Q404 124 396 124 L28 124 Q20 124 20 116 Z"
-              fill="url(#carBody)"
+              d="M18 118 L36 116 Q52 84 96 78 L150 72 Q180 58 250 56 L300 56 Q356 58 388 84 L430 100 Q446 104 446 120 L446 130 Q446 138 436 138 L30 138 Q18 138 18 128 Z"
+              fill="url(#carPaint)"
             />
-            <path class="dr-glass" d="M126 66 Q150 46 210 46 L246 46 Q296 46 322 74 L250 74 L138 76 Z" />
-            <circle class="dr-wheel" cx="118" cy="122" r="22" />
-            <circle class="dr-wheel" cx="322" cy="122" r="22" />
-            <circle class="dr-hub" cx="118" cy="122" r="8" />
-            <circle class="dr-hub" cx="322" cy="122" r="8" />
+            <path
+              class="dr-lower"
+              d="M22 132 L440 132 Q446 132 446 126 L446 132 Q446 140 436 140 L30 140 Q22 140 22 132 Z"
+              fill="#050b10"
+            />
+            <path class="dr-sheen" d="M40 112 Q160 92 430 104 L430 110 Q160 100 42 118 Z" fill="url(#carSheen)" />
+
+            <path class="dr-glass" d="M108 78 Q140 60 196 58 L196 82 L118 84 Z" fill="url(#carGlass)" />
+            <path class="dr-glass" d="M206 58 L292 58 Q330 60 350 80 L206 82 Z" fill="url(#carGlass)" />
+            <line class="dr-pillar" x1="200" y1="58" x2="200" y2="82" />
+
+            <path class="dr-headlight" d="M430 100 Q446 104 446 116 L430 114 Z" />
+            <circle class="dr-taillight" cx="30" cy="120" r="4" />
+            <path class="dr-grille" d="M436 118 L446 120 L446 128 L434 126 Z" />
+
+            <g class="dr-wheelset">
+              <circle class="dr-tyre" cx="124" cy="134" r="28" />
+              <circle class="dr-rim" cx="124" cy="134" r="17" fill="url(#rim)" />
+              <circle class="dr-tyre" cx="360" cy="134" r="28" />
+              <circle class="dr-rim" cx="360" cy="134" r="17" fill="url(#rim)" />
+              <g class="dr-spokes">
+                <line x1="124" y1="120" x2="124" y2="148" />
+                <line x1="110" y1="134" x2="138" y2="134" />
+                <line x1="114" y1="124" x2="134" y2="144" />
+                <line x1="114" y1="144" x2="134" y2="124" />
+                <line x1="360" y1="120" x2="360" y2="148" />
+                <line x1="346" y1="134" x2="374" y2="134" />
+                <line x1="350" y1="124" x2="370" y2="144" />
+                <line x1="350" y1="144" x2="370" y2="124" />
+              </g>
+            </g>
           </svg>
         </div>
 
@@ -66,19 +122,29 @@ import { whatsappUrl } from '../../shared/whatsapp';
       .dr-scene {
         --p: 0;
         position: relative;
-        height: 300vh;
+        height: 190vh;
       }
       .dr-stage {
         position: sticky;
         top: 0;
         height: 100vh;
         overflow: hidden;
-        background: linear-gradient(180deg, #cfe8f0 0%, #eaf6f6 100%);
+        background: linear-gradient(180deg, #f4d9a8 0%, #eaf1ee 55%);
       }
       .dr-sky {
         position: absolute;
-        inset: 0 0 40% 0;
-        background: linear-gradient(180deg, #8fc4dc 0%, #d5edf2 100%);
+        inset: 0 0 36% 0;
+        background: linear-gradient(180deg, #8bb9d4 0%, #e6d9b8 70%, #f6e8c8 100%);
+      }
+      .dr-sun {
+        position: absolute;
+        right: 18%;
+        top: 8%;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #fff7e0 0%, #ffd98a 45%, rgba(255, 200, 120, 0) 72%);
+        opacity: 0.9;
       }
       .dr-mountains {
         position: absolute;
@@ -91,15 +157,22 @@ import { whatsappUrl } from '../../shared/whatsapp';
         will-change: transform;
       }
       .dr-far {
-        background-image: linear-gradient(135deg, transparent 46%, #7fa9b8 46%, #6c98a8 54%, transparent 54%);
-        opacity: 0.55;
-        transform: translateX(calc(var(--p) * -30%));
+        background-image: linear-gradient(135deg, transparent 44%, #9db6bd 44%, #86a4ad 56%, transparent 56%);
+        opacity: 0.5;
+        transform: translateX(calc(var(--p) * -26%));
+      }
+      .dr-mid {
+        bottom: 39%;
+        height: 28%;
+        background-image: linear-gradient(126deg, transparent 44%, #6e9392 44%, #5c8482 56%, transparent 56%);
+        opacity: 0.7;
+        transform: translateX(calc(var(--p) * -46%));
       }
       .dr-near {
         bottom: 40%;
-        height: 26%;
-        background-image: linear-gradient(120deg, transparent 44%, #4d7f8c 44%, #3c6b78 56%, transparent 56%);
-        transform: translateX(calc(var(--p) * -68%));
+        height: 24%;
+        background-image: linear-gradient(120deg, transparent 44%, #3f6f6b 44%, #2f5b58 56%, transparent 56%);
+        transform: translateX(calc(var(--p) * -72%));
       }
       .dr-sea {
         position: absolute;
@@ -107,8 +180,38 @@ import { whatsappUrl } from '../../shared/whatsapp';
         right: 0;
         bottom: 34%;
         height: 12%;
-        background: linear-gradient(180deg, #2f7d97 0%, #1f5f76 100%);
+        background: linear-gradient(180deg, #3a8aa2 0%, #1f5f76 100%);
         opacity: calc((var(--p) - 0.1) * 1.6);
+      }
+      .dr-scenery {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 30%;
+        height: 20%;
+        transform: translateX(calc(var(--p) * -120%));
+        will-change: transform;
+      }
+      .dr-cypress {
+        position: absolute;
+        bottom: 0;
+        width: 16px;
+        height: 78px;
+        background: linear-gradient(180deg, #2c5344 0%, #16382c 100%);
+        border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%;
+        box-shadow: 0 8px 10px rgba(10, 30, 24, 0.25);
+      }
+      .dr-cypress.short {
+        height: 54px;
+        width: 13px;
+      }
+      .dr-bush {
+        position: absolute;
+        bottom: 0;
+        width: 42px;
+        height: 26px;
+        background: radial-gradient(circle at 40% 30%, #4a7a58, #2c5140);
+        border-radius: 50% 50% 44% 44%;
       }
       .dr-road {
         position: absolute;
@@ -116,10 +219,15 @@ import { whatsappUrl } from '../../shared/whatsapp';
         right: -10%;
         bottom: 0;
         height: 36%;
-        background: linear-gradient(180deg, #35424c 0%, #232d35 100%);
+        background: linear-gradient(180deg, #3c4954 0%, #212b33 100%);
         transform: skewY(-1.4deg);
         transform-origin: left;
         overflow: hidden;
+      }
+      .dr-road-sheen {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(120% 60% at 60% 0%, rgba(255, 220, 160, 0.28) 0%, rgba(255, 220, 160, 0) 60%);
       }
       .dr-lane {
         position: absolute;
@@ -133,25 +241,52 @@ import { whatsappUrl } from '../../shared/whatsapp';
       .dr-car {
         position: absolute;
         left: 46%;
-        bottom: 21%;
-        width: 320px;
+        bottom: 20%;
+        width: 360px;
         transform: translateX(-50%);
-        animation: carBob 3.2s ease-in-out infinite;
-        filter: drop-shadow(0 14px 12px rgba(6, 20, 30, 0.35));
+        animation: carBob 3.4s ease-in-out infinite;
+      }
+      .dr-car-shadow {
+        position: absolute;
+        left: 8%;
+        right: 6%;
+        bottom: -6px;
+        height: 20px;
+        background: radial-gradient(closest-side, rgba(6, 16, 22, 0.5), rgba(6, 16, 22, 0));
+        filter: blur(3px);
       }
       .dr-car svg {
         width: 100%;
         height: auto;
         display: block;
+        filter: drop-shadow(0 10px 10px rgba(6, 20, 30, 0.3));
+      }
+      .dr-lower {
+        opacity: 0.9;
       }
       .dr-glass {
-        fill: rgba(150, 200, 220, 0.6);
+        stroke: rgba(255, 255, 255, 0.4);
+        stroke-width: 0.8;
       }
-      .dr-wheel {
-        fill: #10161c;
+      .dr-pillar {
+        stroke: #0c151d;
+        stroke-width: 3;
       }
-      .dr-hub {
-        fill: #8fa3b3;
+      .dr-headlight {
+        fill: #fff4d6;
+      }
+      .dr-taillight {
+        fill: #e0785a;
+      }
+      .dr-grille {
+        fill: #7d8f9d;
+      }
+      .dr-tyre {
+        fill: #0c1218;
+      }
+      .dr-spokes line {
+        stroke: #cdd8e0;
+        stroke-width: 1.6;
       }
       .dr-marker {
         position: absolute;

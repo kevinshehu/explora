@@ -3,6 +3,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Footer } from './layout/footer';
 import { Header } from './layout/header';
 import { TransitionVeil } from './pages/experiences/transition-veil';
+import { SmoothScroll } from './shared/animation/smooth-scroll';
 import { WhatsappIcon } from './shared/components/whatsapp-icon';
 import { whatsappUrl } from './shared/whatsapp';
 
@@ -33,6 +34,10 @@ export class App {
   private readonly router = inject(Router);
 
   floatingWhatsAppUrl = whatsappUrl('Hi! I would like help planning a trip on the Albanian Riviera.');
+
+  constructor() {
+    inject(SmoothScroll).init();
+  }
 
   get showAdminShell(): boolean {
     return this.router.url.startsWith('/admin');

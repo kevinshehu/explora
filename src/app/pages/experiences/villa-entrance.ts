@@ -34,7 +34,7 @@ import { ScrollScene } from '../../shared/animation/scroll-scene';
       .vx-scene {
         --p: 0;
         position: relative;
-        height: 300vh;
+        height: 190vh;
       }
       .vx-stage {
         position: sticky;

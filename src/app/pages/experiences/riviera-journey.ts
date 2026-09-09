@@ -62,7 +62,7 @@ const ROUTE =
       .rj-scene {
         --p: 0;
         position: relative;
-        height: 340vh;
+        height: 220vh;
       }
       .rj-stage {
         position: sticky;

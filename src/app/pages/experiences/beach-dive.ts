@@ -37,7 +37,7 @@ import { ScrollScene } from '../../shared/animation/scroll-scene';
       .bd-scene {
         --p: 0;
         position: relative;
-        height: 280vh;
+        height: 175vh;
       }
       .bd-stage {
         position: sticky;

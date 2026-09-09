@@ -26,6 +26,7 @@ export class ScrollScene {
   private frame = 0;
   private visible = false;
   private lastValue = -1;
+  private current = 0;
 
   constructor() {
     afterNextRender(() => {
@@ -66,7 +67,12 @@ export class ScrollScene {
     const rect = this.host.getBoundingClientRect();
     const total = rect.height - window.innerHeight;
     const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
-    this.write(total > 0 ? scrolled / total : 0);
+    const target = total > 0 ? scrolled / total : 0;
+    this.current += (target - this.current) * 0.14;
+    if (Math.abs(target - this.current) < 0.0005) {
+      this.current = target;
+    }
+    this.write(this.current);
   }
 
   private write(value: number): void {

@@ -26,31 +26,88 @@ import { whatsappUrl } from '../../shared/whatsapp';
 
         <div class="boat-track" aria-hidden="true">
           <div class="boat-wake"></div>
+          <div class="boat-reflection">
+            <svg class="yacht" viewBox="0 0 460 170" role="presentation">
+              <use href="#yachtBody" />
+            </svg>
+          </div>
           <div class="boat-inner">
-            <svg class="yacht" viewBox="0 0 420 150" role="img" aria-label="Private yacht">
+            <svg class="yacht" viewBox="0 0 460 170" role="img" aria-label="Private luxury yacht">
               <defs>
                 <linearGradient id="hullGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#f5faff" />
-                  <stop offset="0.55" stop-color="#dfe9f2" />
-                  <stop offset="1" stop-color="#a9bccb" />
+                  <stop offset="0" stop-color="#ffffff" />
+                  <stop offset="0.5" stop-color="#e4edf5" />
+                  <stop offset="1" stop-color="#9fb3c4" />
+                </linearGradient>
+                <linearGradient id="hullDark" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#20323f" />
+                  <stop offset="1" stop-color="#0c1a24" />
                 </linearGradient>
                 <linearGradient id="superGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stop-color="#ffffff" />
-                  <stop offset="1" stop-color="#cdd9e4" />
+                  <stop offset="1" stop-color="#d3dfea" />
+                </linearGradient>
+                <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#8fb8cf" />
+                  <stop offset="1" stop-color="#39566a" />
+                </linearGradient>
+                <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#f4f8fb" />
+                  <stop offset="0.5" stop-color="#b9c6d1" />
+                  <stop offset="1" stop-color="#7d8f9d" />
                 </linearGradient>
               </defs>
-              <path
-                class="yacht-hull"
-                d="M18 96 Q14 112 58 112 L332 112 Q392 112 408 88 L360 88 L352 96 Z"
-                fill="url(#hullGrad)"
-              />
-              <path
-                class="yacht-super"
-                d="M92 88 L100 64 L168 64 L178 50 L258 50 L268 64 L318 64 L330 88 Z"
-                fill="url(#superGrad)"
-              />
-              <rect class="yacht-window" x="112" y="70" width="150" height="9" rx="4" />
-              <line class="yacht-mast" x1="214" y1="50" x2="214" y2="24" />
+
+              <g id="yachtBody">
+                <path
+                  class="yacht-hull-dark"
+                  d="M14 108 Q10 128 60 130 L360 130 Q416 128 446 96 L392 96 L372 108 Z"
+                  fill="url(#hullDark)"
+                />
+                <path
+                  class="yacht-hull"
+                  d="M22 104 L372 104 L392 96 L446 96 Q420 82 372 84 L60 92 Q30 94 22 104 Z"
+                  fill="url(#hullGrad)"
+                />
+                <rect class="yacht-boot" x="30" y="101" width="342" height="4" rx="2" />
+
+                <path
+                  class="yacht-deck2"
+                  d="M96 84 L108 58 L214 56 L226 44 L308 44 L322 60 L346 84 Z"
+                  fill="url(#superGrad)"
+                />
+                <path
+                  class="yacht-deck3"
+                  d="M150 44 L160 30 L286 30 L298 44 Z"
+                  fill="url(#superGrad)"
+                />
+
+                <path class="yacht-glass" d="M112 78 L120 62 L206 60 L206 78 Z" fill="url(#glassGrad)" />
+                <path class="yacht-glass" d="M216 60 L300 60 L318 78 L216 78 Z" fill="url(#glassGrad)" />
+                <rect class="yacht-glass2" x="164" y="34" width="120" height="8" rx="3" fill="url(#glassGrad)" />
+
+                <g class="yacht-portholes">
+                  <circle cx="70" cy="112" r="3.4" />
+                  <circle cx="92" cy="112" r="3.4" />
+                  <circle cx="114" cy="112" r="3.4" />
+                  <circle cx="136" cy="112" r="3.4" />
+                </g>
+
+                <line class="yacht-rail" x1="60" y1="92" x2="372" y2="88" />
+                <g class="yacht-stanchions">
+                  <line x1="90" y1="84" x2="90" y2="92" />
+                  <line x1="140" y1="82" x2="140" y2="92" />
+                  <line x1="190" y1="82" x2="190" y2="92" />
+                  <line x1="240" y1="82" x2="240" y2="92" />
+                  <line x1="300" y1="82" x2="300" y2="90" />
+                </g>
+
+                <rect class="yacht-chrome" x="330" y="70" width="18" height="14" rx="3" fill="url(#chrome)" />
+                <line class="yacht-mast" x1="224" y1="30" x2="224" y2="6" />
+                <line class="yacht-radar" x1="212" y1="12" x2="236" y2="12" />
+                <circle class="yacht-light" cx="224" cy="6" r="2.4" />
+                <path class="yacht-bowlight" d="M436 96 l8 -2 -8 -2 Z" />
+              </g>
             </svg>
           </div>
         </div>
@@ -78,7 +135,7 @@ import { whatsappUrl } from '../../shared/whatsapp';
       .boat-scene {
         --p: 0;
         position: relative;
-        height: 300vh;
+        height: 200vh;
       }
 
       .boat-stage {
@@ -164,21 +221,36 @@ import { whatsappUrl } from '../../shared/whatsapp';
 
       .boat-wake {
         position: absolute;
-        right: 62%;
-        bottom: 4px;
-        height: 26px;
-        width: calc(60px + var(--p) * 260px);
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 100%);
+        right: 60%;
+        bottom: 2px;
+        height: 30px;
+        width: calc(70px + var(--p) * 300px);
+        background:
+          radial-gradient(60% 120% at 100% 50%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 60%),
+          linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 100%);
         border-radius: 50%;
+        filter: blur(4px);
+        opacity: 0.85;
+      }
+
+      .boat-reflection {
+        position: absolute;
+        left: 0;
+        bottom: -8%;
+        width: 300px;
+        transform: scaleY(-1);
+        opacity: 0.22;
         filter: blur(3px);
-        opacity: 0.8;
+        -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 78%);
+        mask-image: linear-gradient(180deg, #000 0%, transparent 78%);
+        animation: reflectionWobble 5s ease-in-out infinite;
       }
 
       .boat-inner {
-        width: 260px;
+        width: 300px;
         animation: bob 6.5s ease-in-out infinite;
         transform-origin: center bottom;
-        filter: drop-shadow(0 18px 18px rgba(6, 20, 30, 0.35));
+        filter: drop-shadow(0 16px 16px rgba(6, 20, 30, 0.4));
       }
 
       .yacht {
@@ -187,13 +259,32 @@ import { whatsappUrl } from '../../shared/whatsapp';
         display: block;
       }
 
-      .yacht-window {
-        fill: rgba(40, 66, 92, 0.55);
+      .yacht-boot {
+        fill: #1b2d3a;
       }
-
-      .yacht-mast {
-        stroke: #e6eef5;
-        stroke-width: 2.5;
+      .yacht-glass,
+      .yacht-glass2 {
+        stroke: rgba(255, 255, 255, 0.5);
+        stroke-width: 0.6;
+      }
+      .yacht-portholes circle {
+        fill: rgba(200, 228, 240, 0.85);
+      }
+      .yacht-rail,
+      .yacht-stanchions line {
+        stroke: rgba(220, 232, 242, 0.85);
+        stroke-width: 1.4;
+      }
+      .yacht-mast,
+      .yacht-radar {
+        stroke: #dfe9f2;
+        stroke-width: 2;
+      }
+      .yacht-light {
+        fill: #ffd27f;
+      }
+      .yacht-bowlight {
+        fill: #ffe6b0;
       }
 
       .boat-copy {
@@ -260,6 +351,16 @@ import { whatsappUrl } from '../../shared/whatsapp';
         }
       }
 
+      @keyframes reflectionWobble {
+        0%,
+        100% {
+          transform: scaleY(-1) skewX(-2deg);
+        }
+        50% {
+          transform: scaleY(-1) skewX(2deg);
+        }
+      }
+
       @keyframes waveDrift {
         from {
           transform: translateX(0);
@@ -274,7 +375,7 @@ import { whatsappUrl } from '../../shared/whatsapp';
           width: 190px;
         }
         .boat-scene {
-          height: 240vh;
+          height: 170vh;
         }
       }
     `,

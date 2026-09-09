@@ -27,10 +27,21 @@ import { whatsappUrl } from '../../shared/whatsapp';
         </div>
 
         <div class="cx-frame" aria-hidden="true">
+          <div class="cx-arch"></div>
+          <div class="cx-floor"></div>
+          <div class="cx-sconce cx-sconce-left"></div>
+          <div class="cx-sconce cx-sconce-right"></div>
+          <div class="cx-plant cx-plant-left"></div>
+          <div class="cx-plant cx-plant-right"></div>
+
           <div class="cx-door cx-door-left">
+            <span class="cx-panel cx-panel-top"></span>
+            <span class="cx-panel cx-panel-bottom"></span>
             <span class="cx-handle"></span>
           </div>
           <div class="cx-door cx-door-right">
+            <span class="cx-panel cx-panel-top"></span>
+            <span class="cx-panel cx-panel-bottom"></span>
             <span class="cx-handle"></span>
           </div>
         </div>
@@ -45,7 +56,7 @@ import { whatsappUrl } from '../../shared/whatsapp';
       .cx-scene {
         --p: 0;
         position: relative;
-        height: 280vh;
+        height: 190vh;
       }
       .cx-stage {
         position: sticky;
@@ -121,46 +132,138 @@ import { whatsappUrl } from '../../shared/whatsapp';
         grid-template-columns: 1fr 1fr;
         transform-style: preserve-3d;
       }
+      .cx-arch {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: min(74vw, 780px);
+        height: 15%;
+        transform: translateX(-50%);
+        border-radius: 0 0 26px 26px;
+        background: linear-gradient(180deg, #6a6157 0%, #4c463d 100%);
+        box-shadow:
+          inset 0 -6px 0 #5b5349,
+          0 20px 50px rgba(0, 0, 0, 0.4);
+        z-index: 3;
+      }
+      .cx-arch::after {
+        content: '';
+        position: absolute;
+        left: 8%;
+        right: 8%;
+        top: 22%;
+        height: 40%;
+        border-radius: 4px;
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.05) 0 30px,
+          rgba(0, 0, 0, 0.12) 30px 32px
+        );
+      }
+      .cx-floor {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 12%;
+        background: linear-gradient(180deg, #2a251f 0%, #17130f 100%);
+        box-shadow: inset 0 20px 40px rgba(0, 0, 0, 0.5);
+        z-index: 3;
+      }
+      .cx-sconce {
+        position: absolute;
+        top: 34%;
+        width: 10px;
+        height: 46px;
+        border-radius: 6px;
+        background: linear-gradient(180deg, #f6d8a8, #8a6a3a);
+        z-index: 4;
+        box-shadow: 0 0 30px 10px rgba(255, 205, 130, calc(0.1 + var(--p) * 0.6));
+      }
+      .cx-sconce-left {
+        left: 10%;
+      }
+      .cx-sconce-right {
+        right: 10%;
+      }
+      .cx-plant {
+        position: absolute;
+        bottom: 9%;
+        width: 46px;
+        height: 120px;
+        z-index: 4;
+        background: radial-gradient(20px 60px at 50% 0%, #2f5140 0%, #1c3527 70%, transparent 72%);
+      }
+      .cx-plant::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 40px;
+        height: 34px;
+        transform: translateX(-50%);
+        background: linear-gradient(180deg, #7a5a34, #4a3620);
+        border-radius: 6px 6px 4px 4px;
+      }
+      .cx-plant-left {
+        left: 6%;
+      }
+      .cx-plant-right {
+        right: 6%;
+      }
       .cx-door {
         position: relative;
+        z-index: 2;
+        margin: 13% 0 12%;
         background:
-          linear-gradient(90deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0) 12%),
-          linear-gradient(180deg, #24160c 0%, #3a2413 50%, #1c110a 100%);
-        box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.55);
+          linear-gradient(90deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 14%),
+          repeating-linear-gradient(180deg, #3a2413 0 40px, #34200f 40px 80px),
+          linear-gradient(180deg, #45280f 0%, #2a1809 100%);
+        box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6);
         will-change: transform;
         backface-visibility: hidden;
       }
-      .cx-door::before {
-        content: '';
+      .cx-panel {
         position: absolute;
-        inset: 22px;
-        border: 2px solid rgba(246, 216, 168, 0.28);
+        left: 18%;
+        right: 18%;
+        border: 2px solid rgba(246, 216, 168, 0.22);
         border-radius: 6px;
+        box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.4);
+      }
+      .cx-panel-top {
+        top: 10%;
+        height: 40%;
+      }
+      .cx-panel-bottom {
+        bottom: 10%;
+        height: 34%;
       }
       .cx-door-left {
         transform-origin: left center;
-        transform: rotateY(calc(var(--p) * -108deg));
+        transform: perspective(1600px) rotateY(calc(var(--p) * -112deg));
         border-right: 1px solid rgba(0, 0, 0, 0.5);
       }
       .cx-door-right {
         transform-origin: right center;
-        transform: rotateY(calc(var(--p) * 108deg));
+        transform: perspective(1600px) rotateY(calc(var(--p) * 112deg));
         border-left: 1px solid rgba(0, 0, 0, 0.5);
       }
       .cx-handle {
         position: absolute;
         top: 50%;
-        width: 10px;
-        height: 46px;
+        width: 8px;
+        height: 52px;
         border-radius: 6px;
-        background: linear-gradient(180deg, #f5d9a6, #b98b4e);
+        background: linear-gradient(180deg, #fff0cf 0%, #f5d9a6 40%, #a97e42 100%);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         transform: translateY(-50%);
       }
       .cx-door-left .cx-handle {
-        right: 26px;
+        right: 22px;
       }
       .cx-door-right .cx-handle {
-        left: 26px;
+        left: 22px;
       }
     `,
   ],

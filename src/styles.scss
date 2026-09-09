@@ -1878,10 +1878,49 @@ a.primary,
 }
 
 .site-footer {
+  position: relative;
+  overflow: hidden;
   margin-top: 22px;
   border-top: 1px solid var(--line);
-  background: white;
-  padding: 16px 0 12px;
+  background: linear-gradient(180deg, #f3fafb 0%, #ffffff 60px);
+  padding: 46px 0 12px;
+}
+
+.footer-wave {
+  position: absolute;
+  top: 0;
+  left: -5%;
+  width: 110%;
+  height: 42px;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.footer-wave-back {
+  fill: rgba(0, 166, 200, 0.1);
+  animation: footerWave 16s ease-in-out infinite;
+}
+
+.footer-wave-front {
+  fill: rgba(0, 166, 200, 0.16);
+  animation: footerWave 11s ease-in-out infinite reverse;
+}
+
+@keyframes footerWave {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-3%);
+  }
+}
+
+.footer-grid,
+.site-footer .container {
+  position: relative;
+  z-index: 1;
 }
 
 .footer-grid {

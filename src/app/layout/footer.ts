@@ -9,6 +9,16 @@ import { whatsappUrl } from '../shared/whatsapp';
   imports: [RouterLink, WhatsappIcon],
   template: `
     <footer class="site-footer">
+      <svg class="footer-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          class="footer-wave-back"
+          d="M0 60 C 240 20 480 100 720 60 C 960 20 1200 100 1440 60 V120 H0 Z"
+        />
+        <path
+          class="footer-wave-front"
+          d="M0 80 C 240 50 480 110 720 80 C 960 50 1200 110 1440 80 V120 H0 Z"
+        />
+      </svg>
       <div class="container footer-grid">
         <div class="footer-brand">
           <h3>Explora</h3>
