@@ -17,10 +17,10 @@ const heroImage =
       <div class="luxury-hero-image" [style.background-image]="'url(' + heroImage + ')'" aria-hidden="true"></div>
       <div class="container luxury-hero-inner">
         <div class="luxury-hero-copy">
-          <p class="eyebrow">Luxury villas in Albania</p>
-          <h1>Luxury Villas in Mykonos</h1>
+          <p class="eyebrow">Luxury stays in South Albania</p>
+          <h1>Live the Riviera at its best</h1>
           <p class="lead">
-            Discover a handpicked collection of elegant beach villas, private pools, and personalized stays across the Riviera.
+            Discover elegant villas, quiet coves, and unforgettable sea views across southern Albania’s most beautiful coastline.
           </p>
           <div class="hero-actions">
             <a class="button-primary" routerLink="/destinations">Explore villas</a>
@@ -44,9 +44,9 @@ const heroImage =
 
         <aside class="luxury-hero-booking">
           <p class="panel-label">Most loved</p>
-          <h2>Villa Azalea</h2>
+          <h2>Dhërmi Escape</h2>
           <div class="booking-meta">
-            <span>Sea view</span>
+            <span>Clifftop view</span>
             <span>Private pool</span>
             <span>Beach access</span>
           </div>
@@ -56,7 +56,7 @@ const heroImage =
           </div>
           <div class="booking-price-row muted">
             <span>Location</span>
-            <strong>Aleomandra</strong>
+            <strong>Dhërmi</strong>
           </div>
           <a class="button-primary full" routerLink="/destinations">Check availability</a>
         </aside>
@@ -73,9 +73,9 @@ const heroImage =
 
     <section class="container section-shell">
       <app-section-title
-        label="Personalized tourism services"
-        title="Everything you need for a complete Riviera holiday"
-        description="From airport transfers to private chefs and curated island adventures, all your planning is handled seamlessly."
+        label="Tailored Riviera services"
+        title="Everything you need for a complete Albanian coast escape"
+        description="From airport transfers to private chefs and curated coastal adventures, every detail is planned around your best beach days."
       />
 
       <div class="service-grid">
@@ -124,9 +124,9 @@ const heroImage =
         <div class="about-image" aria-hidden="true"></div>
         <div class="about-copy">
           <p class="eyebrow light">About us</p>
-          <h2>Need to find a paradise-like getaway island?</h2>
+          <h2>Need a coastline that feels both wild and refined?</h2>
           <p>
-            Mykonos is the perfect destination for memorable escapes, and we are here to support the vacation of your dreams with the right villa, pace, and service.
+            The South Riviera is a perfect blend of turquoise water, dramatic cliffs, hidden coves, and slow luxury. We help you choose the right stay and shape a getaway that feels unmistakably Albanian.
           </p>
           <a class="button-primary" routerLink="/destinations">Read more</a>
         </div>
@@ -156,24 +156,24 @@ const heroImage =
 export class HomePage {
   heroImage = heroImage;
   villaNames = [
-    'Villa Magna',
-    'Villa Azalea',
-    'Villa Zen',
-    'Villa Dreamrock',
-    'Villa Anassa',
-    'Villa Chanel',
-    'Villa Iconic',
-    'Villa Diamond',
-    'Villa Infinity Blue',
-    'Villa Skye',
-    'Villa Negra',
-    'Villa Phos',
+    'Dhërmi',
+    'Himarë',
+    'Ksamil',
+    'Sarandë',
+    'Qeparo',
+    'Borsh',
+    'Jale',
+    'Gjipe',
+    'Porto Palermo',
+    'Llogara',
+    'Borsh Cove',
+    'Albanian Riviera',
   ];
   featuredDestinations = destinations.slice(0, 4);
   services = [
     {
-      title: 'Chauffeur services',
-      copy: 'Arrive on time with style, comfort, and effortless island transfers.',
+      title: 'Airport transfers',
+      copy: 'Arrive smoothly with local drivers and easy connections along the coast.',
       image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
     },
     {
@@ -182,30 +182,30 @@ export class HomePage {
       image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80',
     },
     {
-      title: 'Yacht services',
-      copy: 'Let us arrange elegant day escapes, coastal dining, and island-hopping moments.',
+      title: 'Coastal boat days',
+      copy: 'Let us arrange elegant day escapes, swimming stops, and hidden bay discoveries.',
       image: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=900&q=80',
     },
     {
-      title: 'VIP bookings',
-      copy: 'From nightlife entries to premium experiences, we make every reservation effortless.',
+      title: 'Villa concierge',
+      copy: 'From beach club bookings to local recommendations, everything is handled with ease.',
       image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80',
     },
   ];
   lifestyleItems = [
     {
-      label: 'View from our villa',
-      title: 'Sunset moments by the sea',
+      label: 'Coastal views',
+      title: 'Sunset moments over the Ionian sea',
       image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80',
     },
     {
-      label: 'Mykonos lifestyle',
-      title: 'The rhythm of a slow island summer',
+      label: 'South Albania',
+      title: 'The rhythm of a slow Riviera summer',
       image: 'https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1000&q=80',
     },
     {
       label: 'Travel notes',
-      title: 'Chic corners, beach clubs, and quiet escapes',
+      title: 'Quiet coves, beach clubs, and coastal escapes',
       image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1000&q=80',
     },
   ];
