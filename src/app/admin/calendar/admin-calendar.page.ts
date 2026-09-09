@@ -50,9 +50,12 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
             }
 
             @for (day of monthDays(); track day.toISOString()) {
-              <article class="admin-calendar-cell admin-calendar-cell--clickable" [class.is-muted]="!isCurrentMonth(day)" (click)="openCreate(day)">
+              <article class="admin-calendar-cell admin-calendar-cell--clickable" [class.is-muted]="!isCurrentMonth(day)" [class.is-today]="isToday(day)" (click)="openCreate(day)">
                 <header class="admin-calendar-cell-header">
                   <strong>{{ day.getDate() }}</strong>
+                  @if (isToday(day)) {
+                    <span class="today-dot" aria-label="Today"></span>
+                  }
                 </header>
 
                 <div class="admin-calendar-events">
@@ -70,9 +73,12 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
         } @else if (viewMode() === 'week') {
           <div class="admin-calendar-stack">
             @for (day of weekDays(); track day.toISOString()) {
-              <article class="admin-calendar-day-row admin-calendar-day-row--clickable" (click)="openCreate(day)">
+              <article class="admin-calendar-day-row admin-calendar-day-row--clickable" [class.is-today]="isToday(day)" (click)="openCreate(day)">
                 <header class="admin-calendar-day-header">
                   <strong>{{ day | date:'EEE, MMM d' }}</strong>
+                  @if (isToday(day)) {
+                    <span class="today-dot" aria-label="Today"></span>
+                  }
                 </header>
                 <div class="admin-calendar-events admin-calendar-events--row">
                   @for (reservation of reservationsForDay(day); track reservation.id) {
@@ -89,6 +95,9 @@ import { CalendarViewMode, CustomerRecord, ReservationRecord, ReservationUpsertP
           <article class="admin-calendar-day-view">
             <header class="admin-calendar-day-header">
               <strong>{{ selectedDate() | date:'EEEE, MMMM d, yyyy' }}</strong>
+              @if (isToday(selectedDate())) {
+                <span class="today-dot" aria-label="Today"></span>
+              }
             </header>
 
             <div class="admin-slot-grid">
@@ -329,6 +338,11 @@ export class AdminCalendarPage implements OnInit {
 
   isCurrentMonth(day: Date): boolean {
     return isSameMonth(day, this.selectedDate());
+  }
+
+  isToday(day: Date): boolean {
+    const today = new Date();
+    return day.getFullYear() === today.getFullYear() && day.getMonth() === today.getMonth() && day.getDate() === today.getDate();
   }
 
   monthDays(): Date[] {
