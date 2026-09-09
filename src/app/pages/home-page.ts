@@ -4,6 +4,14 @@ import { RouterLink } from '@angular/router';
 import { destinations } from '../data/travel-data';
 import { SectionTitle } from '../shared/components/section-title';
 import { whatsappUrl } from '../shared/whatsapp';
+import { ExpandLink } from '../shared/animation/expand-link';
+import { BeachDive } from './experiences/beach-dive';
+import { BoatExperience } from './experiences/boat-experience';
+import { CoastalDrive } from './experiences/coastal-drive';
+import { ConciergeExperience } from './experiences/concierge-experience';
+import { RivieraJourney } from './experiences/riviera-journey';
+import { SunsetExperience } from './experiences/sunset-experience';
+import { VillaEntrance } from './experiences/villa-entrance';
 
 const heroImage =
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2200&q=80';
@@ -11,7 +19,19 @@ const heroImage =
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [RouterLink, SectionTitle, CurrencyPipe],
+  imports: [
+    RouterLink,
+    SectionTitle,
+    CurrencyPipe,
+    BoatExperience,
+    RivieraJourney,
+    CoastalDrive,
+    VillaEntrance,
+    ConciergeExperience,
+    BeachDive,
+    SunsetExperience,
+    ExpandLink,
+  ],
   template: `
     <section class="luxury-home-hero">
       <div class="luxury-hero-image" [style.background-image]="'url(' + heroImage + ')'" aria-hidden="true"></div>
@@ -92,6 +112,12 @@ const heroImage =
       </div>
     </section>
 
+    <app-boat-experience />
+
+    <app-riviera-journey />
+
+    <app-coastal-drive />
+
     <section class="container section-shell">
       <app-section-title
         label="Top villas"
@@ -100,7 +126,13 @@ const heroImage =
 
       <div class="showcase-grid">
         @for (destination of featuredDestinations; track destination.id) {
-          <article class="showcase-card">
+          <article
+            class="showcase-card is-expandable"
+            [appExpand]="destination.image"
+            [appExpandTo]="['/destinations', destination.slug]"
+            appExpandVariant="villa"
+            [attr.aria-label]="'View ' + destination.city"
+          >
             <img [src]="destination.image" [alt]="destination.city" />
             <div class="showcase-content">
               <div class="showcase-meta">
@@ -111,13 +143,19 @@ const heroImage =
               <p>{{ destination.tagline }}</p>
               <div class="showcase-footer">
                 <strong>from {{ destination.priceFrom | currency:'EUR' }}</strong>
-                <a [routerLink]="['/destinations', destination.slug]">View stay</a>
+                <span class="showcase-cta">View stay <span class="showcase-arrow" aria-hidden="true">→</span></span>
               </div>
             </div>
           </article>
         }
       </div>
     </section>
+
+    <app-villa-entrance />
+
+    <app-concierge-experience />
+
+    <app-beach-dive />
 
     <section class="about-band">
       <div class="container about-band-inner">
@@ -132,6 +170,8 @@ const heroImage =
         </div>
       </div>
     </section>
+
+    <app-sunset-experience />
 
     <section class="container section-shell">
       <app-section-title

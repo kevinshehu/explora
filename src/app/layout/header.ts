@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  afterNextRender,
+  Component,
+  DestroyRef,
+  inject,
+  PLATFORM_ID,
+  signal,
+} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
+  host: { '[class.is-scrolled]': 'scrolled()' },
   template: `
     <header class="site-header">
       <div class="container topbar-grid">
@@ -40,4 +49,20 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     </header>
   `,
 })
-export class Header {}
+export class Header {
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly destroyRef = inject(DestroyRef);
+  readonly scrolled = signal(false);
+
+  constructor() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    afterNextRender(() => {
+      const onScroll = () => this.scrolled.set(window.scrollY > 24);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      this.destroyRef.onDestroy(() => window.removeEventListener('scroll', onScroll));
+    });
+  }
+}

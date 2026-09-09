@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Footer } from './layout/footer';
 import { Header } from './layout/header';
+import { TransitionVeil } from './pages/experiences/transition-veil';
 import { WhatsappIcon } from './shared/components/whatsapp-icon';
 import { whatsappUrl } from './shared/whatsapp';
 
@@ -23,9 +24,10 @@ import { whatsappUrl } from './shared/whatsapp';
           <app-whatsapp-icon />
         </a>
       }
+      <app-transition-veil />
     </div>
   `,
-  imports: [Header, Footer, RouterOutlet, WhatsappIcon],
+  imports: [Header, Footer, RouterOutlet, WhatsappIcon, TransitionVeil],
 })
 export class App {
   private readonly router = inject(Router);
