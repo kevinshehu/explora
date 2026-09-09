@@ -11,10 +11,6 @@ import { AdminSessionService } from '../admin-session.service';
       <aside class="admin-sidebar">
         <div class="admin-branding">
           <span class="admin-brand-mark">E</span>
-          <div>
-            <p class="admin-eyebrow">Explora Operations</p>
-            <h1>Administration</h1>
-          </div>
         </div>
 
         <nav class="admin-nav" aria-label="Admin navigation">
@@ -30,13 +26,6 @@ import { AdminSessionService } from '../admin-session.service';
       </aside>
 
       <div class="admin-panel">
-        <header class="admin-topbar">
-          <div>
-            <p class="admin-eyebrow">Session authenticated</p>
-            <h2>{{ session.username() || 'Admin' }}</h2>
-          </div>
-        </header>
-
         <main class="admin-content">
           <router-outlet />
         </main>
