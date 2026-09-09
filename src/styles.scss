@@ -509,34 +509,12 @@ a.primary,
   align-items: start;
 }
 
-.riviera-showcase {
-  display: grid;
-  grid-template-columns: minmax(280px, 1.1fr) minmax(0, 1.6fr);
-  gap: 18px;
-  align-items: start;
-}
-
-.riviera-featured,
 .riviera-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
   min-width: 0;
-}
-
-.riviera-featured .modern-card {
-  height: auto;
-}
-
-.riviera-featured .card-media {
-  aspect-ratio: 16 / 12;
-}
-
-.modern-card.is-featured .card-media {
-  aspect-ratio: 16 / 12;
-}
-
-.riviera-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
 }
 
 .feature-grid {
@@ -904,8 +882,7 @@ a.primary,
   .two-col,
   .booking-grid,
   .footer-grid,
-    .detail-header,
-    .riviera-showcase {
+    .detail-header {
     grid-template-columns: 1fr;
   }
 

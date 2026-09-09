@@ -61,13 +61,8 @@ const heroImage =
         title="A modern coastal destination map"
         description="From Dhërmi to Vlorë, every route is crafted around beach time, village culture, and premium comfort."
       />
-      <div class="riviera-showcase">
-        <div class="riviera-featured">
-          <app-destination-card [destination]="rivieraLead" [featured]="true" />
-        </div>
-        <div class="riviera-grid">
-          <app-destination-card *ngFor="let destination of rivieraGrid" [destination]="destination" />
-        </div>
+      <div class="riviera-grid">
+        <app-destination-card *ngFor="let destination of rivieraDestinations" [destination]="destination" />
       </div>
     </section>
 
@@ -111,8 +106,7 @@ export class HomePage {
 
   searchForm: ReturnType<typeof this.fb.group>;
   heroImage = heroImage;
-  rivieraLead = destinations[0];
-  rivieraGrid = destinations.slice(1, 8);
+  rivieraDestinations = destinations.slice(0, 8);
   featuredTours = tours.slice(0, 3);
   testimonials = promotionalTestimonials;
   travellerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12];
